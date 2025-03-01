@@ -3,94 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Results</title>
+    <title>Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>File Uploaded Successfully</h1>
+            <h1>Results</h1>
         </header>
         <main>
-            <p>Your file "{{ filename }}" has been uploaded successfully.</p>
-            <!-- Space to display the transformed .ics data file as a calendar -->
-            <div id="calendarDisplay" class="calendar-display">
-                <!-- Calendar content will be dynamically inserted here -->
-            </div>
-            <!-- New menu for scheduling activities -->
-            <div class="schedule-section">
-                <h2>Schedule Your Activities</h2>
-                <form id="scheduleForm">
-                    <div class="schedule-time">
-                        <h3>Morning</h3>
-                        <label for="morningActivity">Activity:</label>
-                        <textarea id="morningActivity" name="morningActivity" rows="3" placeholder="Type your morning activity here..."></textarea>
-                    </div>
-                    <div class="schedule-time">
-                        <h3>Afternoon</h3>
-                        <label for="afternoonActivity">Activity:</label>
-                        <textarea id="afternoonActivity" name="afternoonActivity" rows="3" placeholder="Type your afternoon activity here..."></textarea>
-                    </div>
-                    <div class="schedule-time">
-                        <h3>Evening</h3>
-                        <label for="eveningActivity">Activity:</label>
-                        <textarea id="eveningActivity" name="eveningActivity" rows="3" placeholder="Type your evening activity here..."></textarea>
-                    </div>
-                    <button type="button" onclick="submitSchedule()">Submit</button>
-                </form>
-            </div>
-            <!-- Add a button to navigate back to the upload page -->
-            <button onclick="window.location.href='/'">Upload Another File</button>
+            <p>Your schedule has been submitted successfully.</p>
         </main>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Function to submit schedule
-            function submitSchedule() {
-                const morningActivity = document.getElementById('morningActivity').value;
-                const afternoonActivity = document.getElementById('afternoonActivity').value;
-                const eveningActivity = document.getElementById('eveningActivity').value;
-
-                // Placeholder URL for submitting schedule
-                const url = '/submit_schedule'; // Change this URL as needed
-
-                // Send schedule to the server
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        morning: morningActivity,
-                        afternoon: afternoonActivity,
-                        evening: eveningActivity,
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Schedule submitted:', data);
-                })
-                .catch(error => {
-                    console.error('Error submitting schedule:', error);
-                });
-            }
-
-            // Function to display the transformed .ics data file as a calendar
-            function displayCalendar(data) {
-                const calendarDisplay = document.getElementById('calendarDisplay');
-                calendarDisplay.innerHTML = data; // Assuming data is HTML content
-            }
-
-            // Fetch and display the calendar data (placeholder URL)
-            fetch('/get_calendar_data')
-                .then(response => response.text())
-                .then(data => {
-                    displayCalendar(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching calendar data:', error);
-                });
-        });
-    </script>
-</body>
+    </body>
 </html>

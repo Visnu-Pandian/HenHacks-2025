@@ -37,40 +37,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const submitButton = document.getElementById('submitButton');
 
-            submitButton.addEventListener('click', submitSchedule);
-
-            // Function to submit schedule
-            async function submitSchedule() {
-                const morningActivity = document.getElementById('morningActivity').value;
-                const afternoonActivity = document.getElementById('afternoonActivity').value;
-                const eveningActivity = document.getElementById('eveningActivity').value;
-
-                // Placeholder URL for submitting schedule
-                const url = '/submit_schedule'; // Change this URL as needed
-
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            morning: morningActivity,
-                            afternoon: afternoonActivity,
-                            evening: eveningActivity,
-                        }),
-                    });
-
-                    if (response.ok) {
-                        // Redirect to the results page
-                        window.location.href = '/results';
-                    } else {
-                        console.error('Failed to submit schedule:', response.statusText);
-                    }
-                } catch (error) {
-                    console.error('Error submitting schedule:', error);
-                }
-            }
+            submitButton.addEventListener('click', () => {
+                // Redirect to the results page
+                window.location.href = '/results';
+            });
         });
     </script>
 </body>

@@ -59,6 +59,10 @@ def tasks(filename):
     
     return render_template('tasks.html', filename=filename, events=events)
 
+@app.route('/results')
+def results():
+    return render_template('results.html')
+
 if __name__ == '__main__':
     clear_upload_folder()
     app.run(debug=True)
