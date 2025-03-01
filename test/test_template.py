@@ -123,9 +123,9 @@ Please ensure the .ics file is properly formatted and includes all necessary iCa
 ics_content, chain_of_thought = generate_ics_and_explanation(geminiModel, prompt)
 
 if ics_content and chain_of_thought:
-    with open("schedule.ics", "w", encoding="utf-8") as f:
+    with open(r"test-outputs\schedule.ics", "w", encoding="utf-8") as f:
         f.write(ics_content)
-    with open("chain_of_thought.md", "w", encoding="utf-8") as f:
+    with open(r"test-outputs\chain_of_thought.md", "w", encoding="utf-8") as f:
         f.write(chain_of_thought)
     print(chain_of_thought)
 else:
