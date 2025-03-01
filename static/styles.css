@@ -3,10 +3,6 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
 .container {
@@ -14,18 +10,12 @@ body {
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
-    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 400px;
 }
 
 header {
     text-align: center;
     margin-bottom: 20px;
-    background-color: #007bff;
-    color: #fff;
-    padding: 20px;
 }
 
 h1 {
@@ -33,15 +23,8 @@ h1 {
     margin: 0;
 }
 
-main {
-    padding: 20px;
-}
-
 .upload-section {
     margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .drop-zone {
@@ -49,57 +32,18 @@ main {
     padding: 20px;
     text-align: center;
     cursor: pointer;
-    margin-bottom: 10px;
-    transition: background-color 0.3s;
-}
-
-.drop-zone:hover {
-    background-color: #e0e0e0;
 }
 
 .drop-zone.drag-over {
     border-color: #000;
-    background-color: #e0e0e0;
-}
-
-#fileInput {
-    display: none;
 }
 
 .file-list {
     margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: left;
-}
-
-#uploadButton {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-}
-
-#uploadButton img {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    top: -2px; /* Move the cloud image up a bit */
-    left: 4px;
-}
-
-#uploadButton:hover {
-    background-color: #0056b3;
 }
 
 .upload-status {
     margin-top: 10px;
-    text-align: center;
     color: red;
 }
 
@@ -123,12 +67,13 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* New styles for the priority section */
 .priority-section {
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
-    text-align: center; /* Center the content */
+    text-align: center;
 }
 
 .priority-section h2 {
@@ -142,14 +87,6 @@ button:hover {
     font-weight: bold;
 }
 
-.priority-section input[type="number"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
 .priority-section select {
     width: 100%;
     padding: 8px;
@@ -161,7 +98,7 @@ button:hover {
 }
 
 .priority-section button {
-    background-color: #007bff; /* Change to blue */
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
