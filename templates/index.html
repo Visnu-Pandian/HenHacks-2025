@@ -15,10 +15,10 @@
             <div class="upload-section">
                 <div id="dropZone" class="drop-zone">
                     <p>Drag and drop your file here or click to select file</p>
-                    <input type="file" id="fileInput" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif">
+                    <input type="file" id="fileInput" accept=".ics">
                 </div>
                 <div id="fileList" class="file-list"></div>
-                <button id="uploadButton">Upload</button>
+                <button id="uploadButton"><b>Upload</b><img src="{{ url_for('static', filename='assets/clouduploadicon.png') }}" alt="Logo"></button>
             </div>
             <div id="uploadStatus" class="upload-status"></div>
         </main>
@@ -64,13 +64,13 @@
 
             function addFiles(files) {
                 for (const file of files) {
-                    if (file.name.match(/\.(txt|pdf|png|jpg|jpeg|gif)$/)) {
+                    if (file.name.match(/\.(ics)$/)) {
                         filesToUpload.push(file);
                         const listItem = document.createElement('div');
                         listItem.textContent = file.name;
                         fileList.appendChild(listItem);
                     } else {
-                        alert('Only .txt, .pdf, .png, .jpg, .jpeg, .gif files are allowed.');
+                        alert('Only .ics files are allowed.');
                     }
                 }
             }
