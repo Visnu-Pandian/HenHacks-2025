@@ -1,10 +1,6 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    background-image: url('../assets/bgdesign.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat;
     margin: 0;
     padding: 0;
     display: flex;
@@ -14,7 +10,6 @@ body {
 }
 
 .container {
-
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -47,14 +42,9 @@ main {
     text-align: center;
     cursor: pointer;
     margin-bottom: 10px;
-    transition: background-color 0.3s;
 }
 
 .drop-zone.drag-over {
-    background-color: #e0e0e0;
-}
-
-.drop-zone:hover {
     background-color: #e0e0e0;
 }
 
@@ -72,18 +62,10 @@ main {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px 15px 20px;
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-#uploadButton img {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    top: 5px;
-    left: 4px;
 }
 
 #uploadButton:hover {
@@ -93,12 +75,4 @@ main {
 .upload-status {
     margin-top: 20px;
     text-align: center;
-}
-
-footer {
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
-    padding: 10px;
-    font-size: 14px;
 }
