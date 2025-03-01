@@ -3,94 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Results</title>
+    <title>Final Calendar</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .calendar-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        iframe {
+            border: 0;
+            width: 100%;
+            height: 600px;
+            max-width: 800px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>File Uploaded Successfully</h1>
+            <h1>Final Calendar</h1>
         </header>
         <main>
-            <p>Your file "{{ filename }}" has been uploaded successfully.</p>
-            <!-- Space to display the transformed .ics data file as a calendar -->
+            <!-- Embed Google Calendar -->
             <div id="calendarDisplay" class="calendar-display">
-                <!-- Calendar content will be dynamically inserted here -->
+                <iframe src="https://calendar.google.com/calendar/embed?src=cyberwvu%40gmail.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
             </div>
-            <!-- New menu for scheduling activities -->
-            <div class="schedule-section">
-                <h2>Schedule Your Activities</h2>
-                <form id="scheduleForm">
-                    <div class="schedule-time">
-                        <h3>Morning</h3>
-                        <label for="morningActivity">Activity:</label>
-                        <textarea id="morningActivity" name="morningActivity" rows="3" placeholder="Type your morning activity here..."></textarea>
-                    </div>
-                    <div class="schedule-time">
-                        <h3>Afternoon</h3>
-                        <label for="afternoonActivity">Activity:</label>
-                        <textarea id="afternoonActivity" name="afternoonActivity" rows="3" placeholder="Type your afternoon activity here..."></textarea>
-                    </div>
-                    <div class="schedule-time">
-                        <h3>Evening</h3>
-                        <label for="eveningActivity">Activity:</label>
-                        <textarea id="eveningActivity" name="eveningActivity" rows="3" placeholder="Type your evening activity here..."></textarea>
-                    </div>
-                    <button type="button" onclick="submitSchedule()">Submit</button>
-                </form>
-            </div>
-            <!-- Add a button to navigate back to the upload page -->
-            <button onclick="window.location.href='/'">Upload Another File</button>
         </main>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Function to submit schedule
-            function submitSchedule() {
-                const morningActivity = document.getElementById('morningActivity').value;
-                const afternoonActivity = document.getElementById('afternoonActivity').value;
-                const eveningActivity = document.getElementById('eveningActivity').value;
-
-                // Placeholder URL for submitting schedule
-                const url = '/submit_schedule'; // Change this URL as needed
-
-                // Send schedule to the server
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        morning: morningActivity,
-                        afternoon: afternoonActivity,
-                        evening: eveningActivity,
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Schedule submitted:', data);
-                })
-                .catch(error => {
-                    console.error('Error submitting schedule:', error);
-                });
-            }
-
-            // Function to display the transformed .ics data file as a calendar
-            function displayCalendar(data) {
-                const calendarDisplay = document.getElementById('calendarDisplay');
-                calendarDisplay.innerHTML = data; // Assuming data is HTML content
-            }
-
-            // Fetch and display the calendar data (placeholder URL)
-            fetch('/get_calendar_data')
-                .then(response => response.text())
-                .then(data => {
-                    displayCalendar(data);
-                })
-                .catch(error => {
-                    console.error('Error fetching calendar data:', error);
-                });
-        });
-    </script>
 </body>
 </html>
