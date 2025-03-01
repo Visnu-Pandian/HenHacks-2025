@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import shutil
+import icalendar
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -38,9 +39,25 @@ def upload_file():
         return filename
     return redirect(request.url)
 
-@app.route('/results/<filename>')
-def results(filename):
-    return render_template('results.html', filename=filename)
+@app.route('/tasks/<filename>')
+def tasks(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    with open(file_path, 'rb') as file:
+        gcal = icalendar.Calendar.from_ical(file.read())
+    
+    events = []
+    for component in gcal.walk():
+        if component.name == "VEVENT":
+            event = {
+                'summary': component.get('summary'),
+                'dtstart': component.get('dtstart').dt,
+                'dtend': component.get('dtend').dt,
+                'location': component.get('location'),
+                'description': component.get('description')
+            }
+            events.append(event)
+    
+    return render_template('tasks.html', filename=filename, events=events)
 
 if __name__ == '__main__':
     clear_upload_folder()

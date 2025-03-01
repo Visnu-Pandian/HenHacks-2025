@@ -94,6 +94,20 @@ main {
     text-align: center;
 }
 
+#submitButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#submitButton:hover {
+    background-color: #0056b3;
+}
+
 footer {
     background-color: #f4f4f4;
     color: #333;
