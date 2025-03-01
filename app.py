@@ -22,7 +22,7 @@ def upload_file():
     if file and allowed_file(file.filename):
         filename = file.filename
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('results', filename=filename))
+        return filename
     return redirect(request.url)
 
 @app.route('/results/<filename>')
