@@ -3,17 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Results</title>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>File Uploaded Successfully</h1>
-        </header>
-        <main>
-            <p>Your file "{{ filename }}" has been uploaded successfully.</p>
-        </main>
-    </div>
+    <h1>Uploaded File: {{ filename }}</h1>
 </body>
 </html>
