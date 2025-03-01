@@ -1,0 +1,4 @@
+**Heuristics:** (Provide a list of rules for scheduling tasks, including prioritization, handling overlaps, and any other relevant criteria. Be as specific as possible. Examples:)
+
+* "Prioritize tasks with shorter durations."
+* Leave "transition time" between tasks to avoid back-to-back scheduling. Ideally, they should be about 15 minutes, but use your best judgment.

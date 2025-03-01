@@ -1,0 +1,4 @@
+**Blocked Times:**
+{blocked_str}
+
+Normal waking hours are from {waking_start}to {waking_end} in the defined timezone. Allot breaks and meals as needed.
