@@ -4,7 +4,7 @@ This project is a web application that allows users to upload files of any exten
 
 ## Project Structure
 
-```
+```plaintext
 my-frontend-framework
 ├── public
 │   ├── index.html        # Main HTML document
@@ -26,18 +26,21 @@ my-frontend-framework
 ## Setup Instructions
 
 1. **Clone the repository:**
-   ```
+
+   ```bash
    git clone <repository-url>
    cd my-frontend-framework
    ```
 
 2. **Install dependencies:**
-   ```
+
+   ```bash
    npm install
    ```
 
 3. **Run the application:**
-   ```
+
+   ```bash
    npm start
    ```
 
