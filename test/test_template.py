@@ -102,6 +102,8 @@ I want this week to start from {start_date}, and end on {end_date}.
 
 Normal waking hours are from 08:00 to 22:00. Allot breaks and meals as needed.
 
+Do not just stack all the tasks at the start of the day. Scatter them 
+throughout the available time slots.
 
 The time zone for all provided dates and times is EST.
 
