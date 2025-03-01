@@ -4,6 +4,8 @@ from google import genai
 
 load_dotenv()
 api_key = os.getenv('API_KEY')
+model = os.getenv('MODEL')
+
 prompt = """List a few popular cookie recipes in JSON format.
 
 Use this JSON schema:
@@ -13,7 +15,7 @@ Return: list[Recipe]"""
 
 client = genai.Client(api_key=api_key)
 response = client.models.generate_content(
-    model='gemini-2.0-flash',
+    model=model,
     contents=prompt,
 )
 
