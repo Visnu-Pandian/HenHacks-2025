@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-import icalendar
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['ALLOWED_EXTENSIONS'] = {'ics'}
+app.config['ALLOWED_EXTENSIONS'] = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
@@ -23,28 +22,12 @@ def upload_file():
     if file and allowed_file(file.filename):
         filename = file.filename
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('results', filename=filename))
+        return filename
     return redirect(request.url)
 
 @app.route('/results/<filename>')
 def results(filename):
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    with open(file_path, 'rb') as file:
-        gcal = icalendar.Calendar.from_ical(file.read())
-    
-    events = []
-    for component in gcal.walk():
-        if component.name == "VEVENT":
-            event = {
-                'summary': component.get('summary'),
-                'dtstart': component.get('dtstart').dt,
-                'dtend': component.get('dtend').dt,
-                'location': component.get('location'),
-                'description': component.get('description')
-            }
-            events.append(event)
-    
-    return render_template('results.html', filename=filename, events=events)
+    return render_template('results.html', filename=filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

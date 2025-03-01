@@ -15,12 +15,10 @@
             <div class="upload-section">
                 <div id="dropZone" class="drop-zone">
                     <p>Drag and drop your file here or click to select file</p>
-                    <input type="file" id="fileInput" accept=".ics">
+                    <input type="file" id="fileInput" accept=".ics,.pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.txt" multiple>
                 </div>
                 <div id="fileList" class="file-list"></div>
-                <button id="uploadButton">Upload<img src="/static/assets/clouduploadicon.png" alt="Logo"></button>
-                <!-- Add a button to navigate to the results page -->
-                <button id="resultsButton" onclick="navigateToResults()">Go to Results</button>
+                <button id="uploadButton"><b>Upload</b><img src="/static/assets/clouduploadicon.png" alt="Logo"></button>
             </div>
             <div id="uploadStatus" class="upload-status"></div>
         </main>
@@ -66,13 +64,13 @@
 
             function addFiles(files) {
                 for (const file of files) {
-                    if (file.name.match(/\.(ics)$/)) {
+                    if (file.name.match(/\.(ics|pdf|doc|docx|xls|xlsx|jpg|jpeg|png|txt)$/)) {
                         filesToUpload.push(file);
                         const listItem = document.createElement('div');
                         listItem.textContent = file.name;
                         fileList.appendChild(listItem);
                     } else {
-                        alert('Only .ics files are allowed.');
+                        alert('Only .ics, .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png, .txt files are allowed.');
                     }
                 }
             }
@@ -96,11 +94,6 @@
                 } catch (error) {
                     uploadStatus.textContent = 'Error uploading files';
                 }
-            }
-
-            // Function to navigate to the results page
-            function navigateToResults() {
-                window.location.href = '/results';
             }
         });
     </script>
