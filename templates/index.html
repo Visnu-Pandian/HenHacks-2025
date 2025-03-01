@@ -15,7 +15,7 @@
             <div class="upload-section">
                 <div id="dropZone" class="drop-zone">
                     <p>Drag and drop your file here or click to select file</p>
-                    <input type="file" id="fileInput" accept=".ics,.pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.txt" multiple>
+                    <input type="file" id="fileInput" accept=".ics">
                 </div>
                 <div id="fileList" class="file-list"></div>
                 <button id="uploadButton"><b>Upload</b><img src="/static/assets/clouduploadicon.png" alt="Logo"></button>
@@ -31,18 +31,18 @@
             const uploadButton = document.getElementById('uploadButton');
             const uploadStatus = document.getElementById('uploadStatus');
 
-            let filesToUpload = [];
+            let fileToUpload = null;
 
             fileInput.addEventListener('change', handleFileSelect);
             dropZone.addEventListener('dragover', handleDragOver);
             dropZone.addEventListener('dragleave', handleDragLeave);
             dropZone.addEventListener('drop', handleFileDrop);
             dropZone.addEventListener('click', () => fileInput.click());
-            uploadButton.addEventListener('click', uploadFiles);
+            uploadButton.addEventListener('click', uploadFile);
 
             function handleFileSelect(event) {
                 const files = event.target.files;
-                addFiles(files);
+                addFile(files[0]);
             }
 
             function handleDragOver(event) {
@@ -59,25 +59,29 @@
                 event.preventDefault();
                 dropZone.classList.remove('drag-over');
                 const files = event.dataTransfer.files;
-                addFiles(files);
+                addFile(files[0]);
             }
 
-            function addFiles(files) {
-                for (const file of files) {
-                    if (file.name.match(/\.(ics|pdf|doc|docx|xls|xlsx|jpg|jpeg|png|txt)$/)) {
-                        filesToUpload.push(file);
-                        const listItem = document.createElement('div');
-                        listItem.textContent = file.name;
-                        fileList.appendChild(listItem);
-                    } else {
-                        alert('Only .ics, .pdf, .doc, .docx, .xls, .xlsx, .jpg, .jpeg, .png, .txt files are allowed.');
-                    }
+            function addFile(file) {
+                if (file && file.name.match(/\.(ics)$/)) {
+                    fileToUpload = file;
+                    fileList.innerHTML = ''; // Clear previous file list
+                    const listItem = document.createElement('div');
+                    listItem.textContent = file.name;
+                    fileList.appendChild(listItem);
+                } else {
+                    alert('Only .ics files are allowed.');
                 }
             }
 
-            async function uploadFiles() {
+            async function uploadFile() {
+                if (!fileToUpload) {
+                    alert('No file selected.');
+                    return;
+                }
+
                 const formData = new FormData();
-                filesToUpload.forEach(file => formData.append('file', file));
+                formData.append('file', fileToUpload);
 
                 try {
                     const response = await fetch('/upload', {
@@ -92,7 +96,7 @@
                         uploadStatus.textContent = 'File upload failed';
                     }
                 } catch (error) {
-                    uploadStatus.textContent = 'Error uploading files';
+                    uploadStatus.textContent = 'Error uploading file';
                 }
             }
         });
