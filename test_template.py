@@ -11,7 +11,7 @@ Use this JSON schema:
 Recipe = {'recipe_name': str, 'ingredients': list[str]}
 Return: list[Recipe]"""
 
-client = genai.Client(api_key="API_KEY")
+client = genai.Client(api_key=api_key)
 response = client.models.generate_content(
     model='gemini-2.0-flash',
     contents=prompt,
