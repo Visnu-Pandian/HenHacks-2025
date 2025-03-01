@@ -1,10 +1,6 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    background-image: url("/static/assets/bgdesign.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat;
     margin: 0;
     padding: 0;
     display: flex;
@@ -14,22 +10,22 @@ body {
 }
 
 .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 400px;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
 }
 
 header {
+    text-align: center;
+    margin-bottom: 20px;
     background-color: #007bff;
     color: #fff;
     padding: 20px;
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 h1 {
@@ -42,15 +38,14 @@ main {
 }
 
 .upload-section {
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .drop-zone {
     border: 2px dashed #ccc;
-    border-radius: 4px;
     padding: 20px;
     text-align: center;
     cursor: pointer;
@@ -63,8 +58,8 @@ main {
 }
 
 .drop-zone.drag-over {
-    background-color: #e0e0e0;
     border-color: #000;
+    background-color: #e0e0e0;
 }
 
 #fileInput {
@@ -153,6 +148,16 @@ button:hover {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.priority-section select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 1em;
 }
 
 .priority-section button {
