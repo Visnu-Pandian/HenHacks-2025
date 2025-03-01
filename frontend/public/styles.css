@@ -54,6 +54,10 @@ main {
     background-color: #e0e0e0;
 }
 
+.drop-zone:hover {
+    background-color: #e0e0e0;
+}
+
 #fileInput {
     display: none;
 }
