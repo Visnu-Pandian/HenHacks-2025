@@ -18,9 +18,28 @@
                     <input type="file" id="fileInput" accept=".ics">
                 </div>
                 <div id="fileList" class="file-list"></div>
-                <button id="uploadButton"><b>Upload</b><img src="/static/assets/clouduploadicon.png" alt="Logo"></button>
+                <button id="uploadButton">Upload<img src="/static/assets/clouduploadicon.png" alt="Logo"></button>
+                <!-- Add a button to navigate to the results page -->
+                <button id="resultsButton" onclick="navigateToResults()">Go to Results</button>
             </div>
             <div id="uploadStatus" class="upload-status"></div>
+
+            <!-- New menu for prioritizing schedule -->
+            <div class="priority-section">
+                <h2>What are you Prioritizing?</h2>
+                <form id="priorityForm">
+                    <label for="extracurriculars">Extracurriculars:</label>
+                    <input type="number" id="extracurriculars" name="extracurriculars" min="0" max="10" value="5" placeholder="Rate from 0 to 10">
+                    <br>
+                    <label for="exercise">Exercise:</label>
+                    <input type="number" id="exercise" name="exercise" min="0" max="10" value="5" placeholder="Rate from 0 to 10">
+                    <br>
+                    <label for="schoolWork">School Work:</label>
+                    <input type="number" id="schoolWork" name="schoolWork" min="0" max="10" value="5" placeholder="Rate from 0 to 10">
+                    <br>
+                    <button type="button" onclick="submitPriorities()">Submit Priorities</button>
+                </form>
+            </div>
         </main>
     </div>
     <script>
@@ -94,6 +113,41 @@
                 } catch (error) {
                     uploadStatus.textContent = 'Error uploading files';
                 }
+            }
+
+            // Function to navigate to the results page
+            function navigateToResults() {
+                window.location.href = '/results';
+            }
+
+            // Function to submit priorities
+            function submitPriorities() {
+                const extracurriculars = document.getElementById('extracurriculars').value;
+                const exercise = document.getElementById('exercise').value;
+                const schoolWork = document.getElementById('schoolWork').value;
+
+                // Placeholder URL for submitting priorities
+                const url = '/submit_priorities'; // Change this URL as needed
+
+                // Send priorities to the server
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        extracurriculars: extracurriculars,
+                        exercise: exercise,
+                        schoolWork: schoolWork,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Priorities submitted:', data);
+                })
+                .catch(error => {
+                    console.error('Error submitting priorities:', error);
+                });
             }
         });
     </script>
