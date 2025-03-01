@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
+    <title>Final Calendar</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Results</h1>
+            <h1>Final Calendar</h1>
         </header>
         <main>
-            <p>Your schedule has been submitted successfully.</p>
+            <!-- Embed Google Calendar -->
+            <div id="calendarDisplay" class="calendar-display">
+                <iframe src="https://calendar.google.com/calendar/embed?src=cyberwvu%40gmail.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            </div>
         </main>
     </div>
-    </body>
+</body>
 </html>
