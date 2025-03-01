@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ICS File Schema",
+    "type": "object",
+    "properties": {
+      "tasks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "The title of the task"
+            },
+            "description": {
+              "type": "string",
+              "description": "The description of the task"
+            },
+            "duration": {
+              "type": "string",
+              "description": "The duration of the task"
+            }
+          },
+          "required": ["title", "description", "duration"]
+        },
+        "description": "A list of tasks"
+      },
+      "blocked_times": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "start_time": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The start time of the blocked period"
+            },
+            "end_time": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The end time of the blocked period"
+            }
+          },
+          "required": ["start_time", "end_time"]
+        },
+        "description": "A list of blocked time slots"
+      }
+    },
+    "required": ["tasks", "blocked_times"]
+  }
