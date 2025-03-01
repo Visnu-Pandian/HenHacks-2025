@@ -7,12 +7,95 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="app">
-        <h1>Upload Your Files</h1>
-        <input type="file" id="fileInput" multiple>
-        <button id="uploadButton">Upload</button>
-        <div id="uploadStatus"></div>
+    <div class="container">
+        <header>
+            <h1>Upload Your Files</h1>
+        </header>
+        <main>
+            <div class="upload-section">
+                <div id="dropZone" class="drop-zone">
+                    <p>Drag and drop your files here or click to select files</p>
+                    <input type="file" id="fileInput" multiple>
+                </div>
+                <div id="fileList" class="file-list"></div>
+                <button id="uploadButton">Upload</button>
+            </div>
+            <div id="uploadStatus" class="upload-status"></div>
+        </main>
+        <footer>
+            <p>&copy; 2025 File Upload Application. All rights reserved.</p>
+        </footer>
     </div>
-    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const dropZone = document.getElementById('dropZone');
+            const fileList = document.getElementById('fileList');
+            const uploadButton = document.getElementById('uploadButton');
+            const uploadStatus = document.getElementById('uploadStatus');
+
+            let filesToUpload = [];
+
+            fileInput.addEventListener('change', handleFileSelect);
+            dropZone.addEventListener('dragover', handleDragOver);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('drop', handleFileDrop);
+            dropZone.addEventListener('click', () => fileInput.click());
+            uploadButton.addEventListener('click', uploadFiles);
+
+            function handleFileSelect(event) {
+                const files = event.target.files;
+                addFiles(files);
+            }
+
+            function handleDragOver(event) {
+                event.preventDefault();
+                dropZone.classList.add('drag-over');
+            }
+
+            function handleDragLeave(event) {
+                event.preventDefault();
+                dropZone.classList.remove('drag-over');
+            }
+
+            function handleFileDrop(event) {
+                event.preventDefault();
+                dropZone.classList.remove('drag-over');
+                const files = event.dataTransfer.files;
+                addFiles(files);
+            }
+
+            function addFiles(files) {
+                for (const file of files) {
+                    filesToUpload.push(file);
+                    const listItem = document.createElement('div');
+                    listItem.textContent = file.name;
+                    fileList.appendChild(listItem);
+                }
+            }
+
+            async function uploadFiles() {
+                const formData = new FormData();
+                filesToUpload.forEach(file => formData.append('files', file));
+
+                try {
+                    const response = await fetch('/api/upload', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        uploadStatus.textContent = 'Files uploaded successfully';
+                        fileList.innerHTML = '';
+                        filesToUpload = [];
+                    } else {
+                        uploadStatus.textContent = 'File upload failed';
+                    }
+                } catch (error) {
+                    uploadStatus.textContent = 'Error uploading files';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
