@@ -15,12 +15,12 @@ def generate_ics_and_explanation(client, model, prompt):
                         "type": "string",
                         "description": "The generated .ics file content as a string."
                     },
-                    "chain_of_thought": {
+                    "summary": {
                         "type": "string",
-                        "description": "A detailed explanation of the scheduling decisions made, including heuristic application and reasoning."
+                        "description": "A 2-3 sentence summary of the changes made to the file, in a helpful and positive manner as outlined in the prompt."
                     }
                 },
-                "required": ["ics_file", "chain_of_thought"]
+                "required": ["ics_file", "summary"]
             }
         },
     )
@@ -31,9 +31,9 @@ def generate_ics_and_explanation(client, model, prompt):
         response_data = json.loads(response_dict) #parse the json string
 
         ics_content = response_data["ics_file"]
-        chain_of_thought = response_data["chain_of_thought"]
+        summary = response_data["summary"]
 
-        return ics_content, chain_of_thought
+        return ics_content, summary
 
     except (AttributeError, IndexError, json.JSONDecodeError, KeyError) as e:
         print(f"Error processing response: {e}")

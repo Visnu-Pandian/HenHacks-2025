@@ -110,7 +110,7 @@ No new tasks after these ones can be allotted during these times.
 	 Quantity: 1
 	 Time Preference: morning
 
-Do not just stack all the tasks at the start of the day. Scatter them throughout the available time slots.
+Do not just stack all the tasks at the start of the day. Scatter them throughout the available time slots, and ideally spread them throught the week.
 
 **Heuristics:** 
 Use the heuristics as guidelines for optimizing the schedule for the user's benefit:
@@ -123,13 +123,5 @@ Use the heuristics as guidelines for optimizing the schedule for the user's bene
 **Output Requirements:**
 
 1.  Generate a valid .ics file containing the scheduled tasks and blocked times.
-2.  After generating the .ics file, provide a detailed "chain of thought" in markdown format, explaining your reasoning behind the scheduling decisions. This explanation should include:
-* How you interpreted and applied each of the provided heuristics.
-* The order in which you processed the tasks.
-* Specific decisions made during the scheduling process, such as task placement and conflict resolution.
-* Any limitations or challenges encountered during the process.
-* Potential improvements to the schedule or heuristics.
-
-Keep this information as clear as possible. The goal is to clearly state your thought process so that we can use it to re-engineer the prompt to better serve our use case.
-
-Please ensure the .ics file is properly formatted and includes all necessary iCalendar properties (e.g., UID, DTSTAMP, VERSION, PRODID).
+2.  After generating the .ics file, provide a 2-3 sentence summary in text format of the changes you made to the .ics file.
+3.  You should use a very helpful and enthusiastic tone for this summary. Do not dwell on what you were not able to do. Only output the positives of what you were able to organize.

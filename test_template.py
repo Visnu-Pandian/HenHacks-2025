@@ -62,18 +62,18 @@ kwargs = {
 processed_kwargs = process_kwargs(**kwargs)
 
 prompt = generate_prompt(**processed_kwargs)
-with open(r"test/test-outputs/prompt.md", "w", encoding="utf-8") as f:
+with open(r"downloads/prompt.md", "w", encoding="utf-8") as f:
     f.write(prompt)
 
-ics_content, chain_of_thought = generate_ics_and_explanation(client, geminiModel, prompt)
-if ics_content and chain_of_thought:
-    with open(r"test/test-outputs/schedule.ics", "w", encoding="utf-8") as f:
+ics_content, summary = generate_ics_and_explanation(client, geminiModel, prompt)
+if ics_content and summary:
+    with open(r"downloads/schedule.ics", "w", encoding="utf-8") as f:
         f.write(ics_content)
-    with open(r"test/test-outputs/chain_of_thought.md", "w", encoding="utf-8") as f:
-        f.write(chain_of_thought)
-    print(chain_of_thought)
+    with open(r"downloads/summary.txt", "w", encoding="utf-8") as f:
+        f.write(summary)
+    print(summary)
 else:
     if ics_content is None:
         print("Failed to generate .ics file.")
-    if chain_of_thought is None:
+    if summary is None:
         print("Failed to generate explanation.")
