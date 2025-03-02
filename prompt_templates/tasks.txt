@@ -1,2 +1,20 @@
 **Tasks:**
 {tasks_str}
+
+Note that the order for .ics files goes as follows:
+BEGINVEVENT
+DTSTART
+DTEND
+DTSTAMP
+UID
+CREATE
+DESCRIPTION
+MODIFIED
+LOCATION
+SEQUENCE
+STATUS
+SUMMARY
+TRANSP
+ENDVEVENT
+
+Note that all the values are not specified, use your best judgment to leave it blank or provide a default value. Note that it is extremely important that all of the necessary variables are specified so that the .ics file can be imported in Google Calendar or another calendar viewer correctly.

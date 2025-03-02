@@ -12,25 +12,11 @@ The following tasks were from previously imported tasks. The SUMMARY for each ev
 No new tasks after these ones can be allotted during these times.
 
 **Tasks:**
-* Title: walk my dog
-	  Description: fluffy
+* Title: Hit the gym
+	  Description: gym
 	 Start Time: None specified
 	 End Time: None specified
 	 Duration: 30 minutes
-	 Quantity: 2
-	 Time Preference: morning
-* Title: Go to the gy
-	  Description: I need to hit the weights.
-	 Start Time: None specified
-	 End Time: None specified
-	 Duration: 60 minutes
-	 Quantity: 2
-	 Time Preference: afternoon
-* Title: Study Hard
-	  Description: I have a lot of exams soon.
-	 Start Time: None specified
-	 End Time: None specified
-	 Duration: 60 minutes
 	 Quantity: 3
 	 Time Preference: evening
 * Title: Church
@@ -124,6 +110,24 @@ No new tasks after these ones can be allotted during these times.
 	 Quantity: 1
 	 Time Preference: morning
 
+Note that the order for .ics files goes as follows:
+BEGINVEVENT
+DTSTART
+DTEND
+DTSTAMP
+UID
+CREATE
+DESCRIPTION
+MODIFIED
+LOCATION
+SEQUENCE
+STATUS
+SUMMARY
+TRANSP
+ENDVEVENT
+
+Note that all the values are not specified, use your best judgment to leave it blank or provide a default value. Note that it is extremely important that all of the necessary variables are specified so that the .ics file can be imported in Google Calendar or another calendar viewer correctly.
+
 Do not just stack all the tasks at the start of the day. Scatter them throughout the available time slots, and ideally spread them throught the week.
 
 **Heuristics:** 
@@ -136,6 +140,6 @@ Use the heuristics as guidelines for optimizing the schedule for the user's bene
 
 **Output Requirements:**
 
-1.  Generate a valid .ics file containing the scheduled tasks and blocked times.
+1.  Generate a valid .ics file containing the scheduled tasks and blocked times. It is extremely important that the file contains all necessary requirements and is formatted properly.
 2.  After generating the .ics file, provide a 2-3 sentence summary in text format of the changes you made to the .ics file.
-3.  You should use a very helpful and enthusiastic tone for this summary. Do not dwell on what you were not able to do. Only output the positives of what you were able to organize.
+3.  You should use a very helpful and enthusiastic tone for this summary. Do not dwell on what you were not able to do. Only output the positives of what you were able to organize. Do not explain the inner workings of the AI behind the scenes, just explain the changes in a positive way.
