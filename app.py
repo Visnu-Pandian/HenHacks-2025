@@ -1,12 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import os
 import shutil
-import icalendar
 import json
 import webbrowser
-from datetime import datetime, timedelta
-import pytz
-import pandas as pd
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -115,7 +112,6 @@ def tasks(filename):
     # Convert events to JSON
     events_json = json.dumps(events, indent=4)
     
-    
     filename = 'input_schedule.json'
     json_folder = app.config['JSON_FOLDER']
     os.makedirs(json_folder, exist_ok=True)
@@ -132,7 +128,7 @@ def tasks(filename):
 @app.route('/save_schedule', methods=['POST'])
 def save_schedule():
     schedule = request.get_json()
-    filename = schedule.get('filename', 'default_schedule.json')
+    filename = 'task_schedule.json'
     json_folder = app.config['JSON_FOLDER']
     os.makedirs(json_folder, exist_ok=True)
     file_path = os.path.join(json_folder, filename)
