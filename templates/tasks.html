@@ -78,6 +78,7 @@
             const taskList = document.getElementById('taskList');
             const submitButton = document.getElementById('submitButton');
             const taskDuration = document.getElementById('taskDuration');
+            const filename = "{{ filename }}";
 
             let tasks = [];
 
@@ -87,6 +88,12 @@
                 const taskDurationValue = taskDuration.value;
                 const preferredTime = document.getElementById('preferredTime').value;
                 const quantity = document.getElementById('quantity').value;
+
+                // Validation check
+                if (!taskName || !taskDescription || !taskDurationValue || !preferredTime || !quantity) {
+                    alert('Please fill in all fields before adding a task.');
+                    return;
+                }
 
                 const task = {
                     name: taskName,
@@ -133,7 +140,18 @@
                 const blockedHoursStart = document.getElementById('blockedHoursStart').value;
                 const blockedHoursEnd = document.getElementById('blockedHoursEnd').value;
 
+                // Validation check
+                if (tasks.length === 0) {
+                    alert('Please add at least one task before submitting.');
+                    return;
+                }
+                if (!wakingHoursStart || !wakingHoursEnd || !blockedHoursStart || !blockedHoursEnd) {
+                    alert('Please fill in all waking and blocked hours before submitting.');
+                    return;
+                }
+
                 const schedule = {
+                    filename: filename,
                     tasks: tasks,
                     generalParameters: {
                         wakingHoursStart: wakingHoursStart,
@@ -155,7 +173,7 @@
                 .then(data => {
                     console.log('Schedule saved:', data);
                     // Redirect to the results page
-                    window.location.href = '/results';
+                    window.location.href = `/results/${filename}`;
                 })
                 .catch(error => {
                     console.error('Error saving schedule:', error);

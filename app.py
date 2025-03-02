@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import os
 import shutil
 import icalendar
@@ -41,27 +41,22 @@ def upload_file():
 
 @app.route('/tasks/<filename>')
 def tasks(filename):
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    with open(file_path, 'rb') as file:
-        gcal = icalendar.Calendar.from_ical(file.read())
-    
-    events = []
-    for component in gcal.walk():
-        if component.name == "VEVENT":
-            event = {
-                'summary': component.get('summary'),
-                'dtstart': component.get('dtstart').dt,
-                'dtend': component.get('dtend').dt,
-                'location': component.get('location'),
-                'description': component.get('description')
-            }
-            events.append(event)
-    
-    return render_template('tasks.html', filename=filename, events=events)
+    return render_template('tasks.html', filename=filename)
 
-@app.route('/results')
-def results():
-    return render_template('results.html')
+@app.route('/save_schedule', methods=['POST'])
+def save_schedule():
+    schedule = request.get_json()
+    filename = schedule.get('filename', 'default_schedule.json')
+    # Here you would save the schedule to a database or file
+    # For demonstration, we'll just print it to the console
+    print(schedule)
+    
+    # Assuming the save operation is successful, return a success response
+    return jsonify({"status": "success", "filename": filename}), 200
+
+@app.route('/results/<filename>')
+def results(filename):
+    return render_template('results.html', filename=filename)
 
 if __name__ == '__main__':
     clear_upload_folder()
