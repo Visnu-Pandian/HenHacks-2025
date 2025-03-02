@@ -3,7 +3,7 @@ Generate an iCalendar (.ics) file representing a weekly schedule based on the fo
 I want this week to start from Sunday, June 09, 2025, and end on Saturday, June 15, 2025.
 The time zone for all provided dates and times is EST.
 
-Normal waking hours are from None specified to None specified in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
+Normal waking hours are from 08:00 to 22:00 in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
 
 **Tasks:**
 * Title: Task 1

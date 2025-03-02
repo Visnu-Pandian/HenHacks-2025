@@ -20,7 +20,12 @@ for i in range(1, 5):
         "Quantity": f"{i % 5 + 1} times,",
         "Time Preference": f"{preference_array[i % 3]}",
     })
-
+blocked = []
+for i in range(1, 5):
+    blocked.append({
+        "Start": f"2025-06-1{i}T{12+i}:00:00",
+        "End": f"2025-06-1{i}T{13+i}:00:00",
+    })
 def process_kwargs(**kwargs):
     """Replace falsy values in kwargs with 'None specified'."""
     return {key: value if value else "None specified" for key, value in kwargs.items()}
@@ -30,7 +35,7 @@ kwargs = {
     "tasks_str": "\n".join([f"* Title: {task['Title']}\n\t  Description: {task['Description']}\n\t  Duration: {task['Duration']}\n\t Quantity: {task['Quantity']}\n\t Time Preference: {task['Time Preference']}" for task in tasks]),
     "start_date": "Sunday, June 09, 2025",
     "end_date": "Saturday, June 15, 2025",
-    "blocked_str": "",
+    "blocked_str": "\n".join([f"* Start: {block['Start']}\n\t  End: {block['End']}" for block in blocked]),
     "timezone": "EST",
     "waking_start": "08:00",
     "waking_end": "22:00",
