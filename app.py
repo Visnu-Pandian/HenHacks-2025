@@ -150,5 +150,5 @@ def results(filename):
 if __name__ == '__main__':
     ensure_folders_exist()
     clear_upload_folder()
-    webbrowser.open(URL)
-    app.run(debug=True)
+    # webbrowser.open(URL)
+    app.run(debug=True, host="0.0.0.0")
