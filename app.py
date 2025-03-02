@@ -84,11 +84,11 @@ def tasks(filename):
             line = f.readline()
             if line.startswith("DTSTART"):
                 start_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
-                if start_date < datetime(2025, 6, 9):
+                if start_date < datetime(2025, 3, 2):
                     break
                 line = f.readline()
                 end_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
-                if end_date > datetime(2025, 6, 15):
+                if end_date > datetime(2025, 3, 8):
                     break
                 duration = end_date - start_date
                 while line.startswith("DESCRIPTION") == False:
