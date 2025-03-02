@@ -3,47 +3,40 @@ Generate an iCalendar (.ics) file representing a weekly schedule based on the fo
 I want this week to start from Sunday, June 09, 2025, and end on Saturday, June 15, 2025.
 The time zone for all provided dates and times is EST.
 
+Normal waking hours are from None specified to None specified in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
+
 **Tasks:**
 * Title: Task 1
 	  Description: Description for Task 1
 	  Duration: 2 hour
+	 Quantity: 2 times,
 * Title: Task 2
 	  Description: Description for Task 2
 	  Duration: 3 hour
+	 Quantity: 3 times,
 * Title: Task 3
 	  Description: Description for Task 3
 	  Duration: 4 hour
+	 Quantity: 4 times,
 * Title: Task 4
 	  Description: Description for Task 4
 	  Duration: 1 hour
-* Title: Task 5
-	  Description: Description for Task 5
-	  Duration: 2 hour
-* Title: Task 6
-	  Description: Description for Task 6
-	  Duration: 3 hour
-* Title: Task 7
-	  Description: Description for Task 7
-	  Duration: 4 hour
-* Title: Task 8
-	  Description: Description for Task 8
-	  Duration: 1 hour
-* Title: Task 9
-	  Description: Description for Task 9
-	  Duration: 2 hour
+	 Quantity: 5 times,
 
 **Blocked Times:**
+The following times have already been allotted and so tasks must not be placed during these times:
 None specified
-
-Normal waking hours are from None specified to None specified in the defined timezone. Allot breaks and meals as needed.
 
 Do not just stack all the tasks at the start of the day. Scatter them 
 throughout the available time slots.
 
-**Heuristics:** (Provide a list of rules for scheduling tasks, including prioritization, handling overlaps, and any other relevant criteria. Be as specific as possible. Examples:)
+**Heuristics:** 
+Use the heuristics as guidelines for optimizing the schedule for the user's benefit:
 
-* "Prioritize tasks with shorter durations."
+* Prioritize tasks with shorter durations.
 * Leave "transition time" between tasks to avoid back-to-back scheduling. Ideally, they should be about 15 minutes, but use your best judgment.
+* Attempt to spread the tasks out among the week as evenly as possible.
+* If it seems that a task needs to be completed during business hours, schedule it during business hours (9AM to 5PM).
 
 **Output Requirements:**
 

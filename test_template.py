@@ -14,7 +14,8 @@ for i in range(1, 5):
     tasks.append({
         "Title": f"Task {i}",
         "Description": f"Description for Task {i}",
-        "Duration": f"{i} hour",
+        "Duration": f"{i % 4 + 1} hour",
+        "Quantity": f"{i % 5 + 1} times,"
     })
 
 def process_kwargs(**kwargs):
@@ -23,7 +24,7 @@ def process_kwargs(**kwargs):
 
 # Example usage
 kwargs = {
-    "tasks_str": "\n".join([f"* Title: {task['Title']}\n\t  Description: {task['Description']}\n\t  Duration: {task['Duration']}" for task in tasks]),
+    "tasks_str": "\n".join([f"* Title: {task['Title']}\n\t  Description: {task['Description']}\n\t  Duration: {task['Duration']}\n\t Quantity: {task['Quantity']}" for task in tasks]),
     "start_date": "Sunday, June 09, 2025",
     "end_date": "Saturday, June 15, 2025",
     "blocked_str": "",
@@ -36,8 +37,6 @@ processed_kwargs = process_kwargs(**kwargs)
 prompt = generate_prompt(**processed_kwargs)
 with open(r"test/test-outputs/prompt.md", "w", encoding="utf-8") as f:
     f.write(prompt)
-exit()
-
 
 ics_content, chain_of_thought = generate_ics_and_explanation(client, geminiModel, prompt)
 if ics_content and chain_of_thought:

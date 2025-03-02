@@ -19,6 +19,10 @@
             "duration": {
               "type": "string",
               "description": "The duration of the task"
+            },
+            "quantity": {
+              "type": "string",
+              "description": "The quantity of the task"
             }
           },
           "required": ["title", "description", "duration"]
