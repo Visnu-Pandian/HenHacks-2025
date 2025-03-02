@@ -3,70 +3,35 @@ Generate an iCalendar (.ics) file representing a weekly schedule based on the fo
 I want this week to start from Sunday, June 09, 2025, and end on Saturday, June 15, 2025.
 The time zone for all provided dates and times is EST.
 
-Normal waking hours are from 08:00 to 22:00 in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
+Normal waking hours are from 09:00 to 23:00 in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
 
 **Blocked Times:**
 The following tasks were from previously imported tasks. The SUMMARY for each event should be the title corresponding to the event (which is indicated with each event), so place the following tasks into the file first:
-* Start: 2025-06-11T09:00:00
-	  End: 2025-06-11T10:00:00
-	 Title: Math Class
-* Start: 2025-06-11T10:30:00
-	  End: 2025-06-11T11:00:00
-	 Title: English Class
-* Start: 2025-06-11T11:30:00
-	  End: 2025-06-11T1:00:00
-	 Title: Science Class
-* Start: 2025-06-12T09:00:00
-	  End: 2025-06-12T10:00:00
-	 Title: Math Class
-* Start: 2025-06-12T10:30:00
-	  End: 2025-06-12T11:00:00
-	 Title: English Class
-* Start: 2025-06-12T11:30:00
-	  End: 2025-06-12T1:00:00
-	 Title: Science Class
-* Start: 2025-06-13T09:00:00
-	  End: 2025-06-13T10:00:00
-	 Title: Math Class
-* Start: 2025-06-13T10:30:00
-	  End: 2025-06-13T11:00:00
-	 Title: English Class
-* Start: 2025-06-13T11:30:00
-	  End: 2025-06-13T1:00:00
-	 Title: Science Class
-* Start: 2025-06-14T09:00:00
-	  End: 2025-06-14T10:00:00
-	 Title: Math Class
-* Start: 2025-06-14T10:30:00
-	  End: 2025-06-14T11:00:00
-	 Title: English Class
-* Start: 2025-06-14T11:30:00
-	  End: 2025-06-14T1:00:00
-	 Title: Science Class
-* Start: 2025-06-10T16:30:00
-	  End: 2025-06-10T18:00:00
-	 Title: Cybersecurity Club Meeting
-* Start: 2025-06-12T18:30:00
-	  End: 2025-06-12T20:00:00
-	 Title: Debate Club Meeting
+* Start: 17:00
+	  End: 19:00
 No new tasks after these ones can be allotted during these times.
 
 **Tasks:**
-* Title: Reading
-	  Description: Read a book
-	  Duration: 1 hour
-	 Quantity: 3 times
-	 Time Preference: Evening
-* Title: Exercise
-	  Description: Go for a run
-	  Duration: 1 hour
-	 Quantity: 2 times
-	 Time Preference: Morning
+* Title: Work Out
+	  Description: Go to the gym
+	  Duration: 60 minutes
+	 Quantity: 3
+	 Time Preference: afternoon
 * Title: Study
-	  Description: Study for exams
-	  Duration: 1 hours
-	 Quantity: 4 times
-	 Time Preference: Afternoon
+	  Description: Study for math
+	  Duration: 120 minutes
+	 Quantity: 2
+	 Time Preference: evening
+* Title: Eat 
+	  Description: Eat Food
+	  Duration: 30 minutes
+	 Quantity: 5
+	 Time Preference: evening
+* Title: Break
+	  Description: Take a walk
+	  Duration: 60 minutes
+	 Quantity: 3
+	 Time Preference: morning
 
 Do not just stack all the tasks at the start of the day. Scatter them throughout the available time slots.
 
