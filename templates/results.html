@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
         .download-button button {
             font-size: 24px;
@@ -21,9 +22,17 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-bottom: 20px;
         }
         .download-button button:hover {
             background-color: #45a049;
+        }
+        .summary-content {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 18px;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -34,9 +43,12 @@
         </header>
         <main>
             <div class="download-button">
-                <a href="{{ url_for('static', filename='chosen_file.ext') }}" download>
+                <a href="{{ url_for('static', filename='../downloads/schedule.ics') }}" download>
                     <button>Download File</button>
                 </a>
+                <div class="summary-content">
+                    {{ summary_content }}
+                </div>
             </div>
         </main>
     </div>

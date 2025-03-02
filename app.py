@@ -4,6 +4,7 @@ import shutil
 import json
 import webbrowser
 from datetime import datetime
+import subprocess  # Import subprocess module
 
 # Flask app configuration
 app = Flask(__name__)
@@ -187,7 +188,17 @@ def save_schedule():
 # Final results page
 @app.route('/results/<filename>')
 def results(filename):
-    return render_template('results.html', filename=filename)
+    # Call create_schedule.py
+    subprocess.run(["python", "create_schedule.py"], check=True)
+    
+    # Read the contents of summary.txt
+    summary_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], 'summary.txt')
+    summary_content = ""
+    if os.path.exists(summary_file_path):
+        with open(summary_file_path, 'r') as summary_file:
+            summary_content = summary_file.read()
+    
+    return render_template('results.html', filename=filename, summary_content=summary_content)
 
 if __name__ == '__main__':
     ensure_folders_exist()

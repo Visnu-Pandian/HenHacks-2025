@@ -1,1 +1,0 @@
-{"calendarSettings": {"dayStartTime": "08:00", "dayEndTime": "20:00", "blockedHours": [{"startTime": "22:00", "endTime": "06:00"}]}, "tasks": [{"title": "test1", "description": "desc1", "start_date": null, "end_date": null, "duration": "30", "quantity": "1", "timePreference": "afternoon"}], "filename": "input_schedule.json"}
