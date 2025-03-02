@@ -103,7 +103,7 @@
                     return;
                 }
 
-                
+                // Create task objects as JSON data
                 const task = {
                     title: taskName,
                     description: taskDescription,
@@ -118,6 +118,7 @@
                 displayTasks();
             });
 
+            // Display tasks in the task list in a grid format
             function displayTasks() {
                 taskList.innerHTML = ''; // Clear previous task list
                 tasks.forEach((task, index) => {
@@ -145,6 +146,7 @@
                 });
             }
 
+            // Submit button event listener
             submitButton.addEventListener('click', () => {
                 const wakingHoursStart = document.getElementById('wakingHoursStart').value;
                 const wakingHoursEnd = document.getElementById('wakingHoursEnd').value;
@@ -161,6 +163,7 @@
                     return;
                 }
 
+                // Create schedule object as JSON data
                 const schedule = {
                     calendarSettings: {
                         dayStartTime: wakingHoursStart,
