@@ -7,39 +7,159 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="tasks-container">
         <header>
             <h1>Schedule Your Activities</h1>
         </header>
         <main>
-            <div class="schedule-section">
-                <form id="scheduleForm">
-                    <div class="schedule-time">
-                        <h3>Morning</h3>
-                        <textarea id="morningActivity" name="morningActivity" rows="3" placeholder="Type your morning activity here..."></textarea>
+            <div class="tasks-schedule-section">
+                <h2>Add Individual Tasks</h2>
+                <form id="taskForm">
+                    <div class="tasks-schedule-time">
+                        <textarea id="taskName" name="taskName" rows="1" maxlength="12" placeholder="Enter task name..."></textarea>
+                        <textarea id="taskDescription" name="taskDescription" rows="2" maxlength="30" placeholder="Enter task description..."></textarea>
                     </div>
-                    <div class="schedule-time">
-                        <h3>Afternoon</h3>
-                        <textarea id="afternoonActivity" name="afternoonActivity" rows="3" placeholder="Type your afternoon activity here..."></textarea>
+                    <div class="tasks-schedule-time">
+                        <select id="taskDuration" name="taskDuration">
+                            <option value="">Select duration</option>
+                            {% for i in range(15, 241, 15) %}
+                                <option value="{{ i }}">{{ i }} minutes</option>
+                            {% endfor %}
+                        </select>
+                        <select id="preferredTime" name="preferredTime">
+                            <option value="">Select preferred time</option>
+                            <option value="morning">Morning</option>
+                            <option value="afternoon">Afternoon</option>
+                            <option value="evening">Evening</option>
+                        </select>
+                        <select id="quantity" name="quantity">
+                            <option value="">Select quantity</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>
-                    <div class="schedule-time">
-                        <h3>Evening</h3>
-                        <textarea id="eveningActivity" name="eveningActivity" rows="3" placeholder="Type your evening activity here..."></textarea>
-                    </div>
-                    <div class="button-container">
-                        <button id="submitButton" type="button">Submit</button>
+                    <div class="tasks-button-container">
+                        <button id="addTaskButton" type="button">Add Task</button>
                     </div>
                 </form>
+            </div>
+            <div class="tasks-task-list" id="taskList">
+            </div>
+            <div class="tasks-general-parameters">
+                <h2>General Parameters</h2>
+                <div class="tasks-schedule-time">
+                    <label for="wakingHoursStart">Waking Hours Start:</label>
+                    <input type="time" id="wakingHoursStart" name="wakingHoursStart">
+                </div>
+                <div class="tasks-schedule-time">
+                    <label for="wakingHoursEnd">Waking Hours End:</label>
+                    <input type="time" id="wakingHoursEnd" name="wakingHoursEnd">
+                </div>
+                <div class="tasks-schedule-time">
+                    <label for="blockedHoursStart">Blocked Hours Start:</label>
+                    <input type="time" id="blockedHoursStart" name="blockedHoursStart">
+                </div>
+                <div class="tasks-schedule-time">
+                    <label for="blockedHoursEnd">Blocked Hours End:</label>
+                    <input type="time" id="blockedHoursEnd" name="blockedHoursEnd">
+                </div>
+                <div class="tasks-button-container">
+                    <button id="submitButton" type="button">Submit</button>
+                </div>
             </div>
         </main>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const addTaskButton = document.getElementById('addTaskButton');
+            const taskList = document.getElementById('taskList');
             const submitButton = document.getElementById('submitButton');
+            const taskDuration = document.getElementById('taskDuration');
+
+            let tasks = [];
+
+            addTaskButton.addEventListener('click', () => {
+                const taskName = document.getElementById('taskName').value;
+                const taskDescription = document.getElementById('taskDescription').value;
+                const taskDurationValue = taskDuration.value;
+                const preferredTime = document.getElementById('preferredTime').value;
+                const quantity = document.getElementById('quantity').value;
+
+                const task = {
+                    name: taskName,
+                    description: taskDescription,
+                    duration: taskDurationValue,
+                    preferredTime: preferredTime,
+                    quantity: quantity
+                };
+
+                tasks.push(task);
+                displayTasks();
+            });
+
+            function displayTasks() {
+                taskList.innerHTML = ''; // Clear previous task list
+                tasks.forEach((task, index) => {
+                    const taskItem = document.createElement('div');
+                    taskItem.className = 'task-item';
+                    taskItem.innerHTML = `
+                        <p><strong>Name:</strong> ${task.name}</p>
+                        <p><strong>Description:</strong> ${task.description}</p>
+                        <p><strong>Duration:</strong> ${task.duration} minutes</p>
+                        <p><strong>Preferred Time:</strong> ${task.preferredTime}</p>
+                        <p><strong>Quantity:</strong> ${task.quantity}</p>
+                        <button class="removeTaskButton" data-index="${index}">Remove</button>
+                    `;
+                    taskList.appendChild(taskItem);
+                });
+
+                // Add event listeners to remove buttons
+                const removeTaskButtons = document.querySelectorAll('.removeTaskButton');
+                removeTaskButtons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const index = event.target.getAttribute('data-index');
+                        tasks.splice(index, 1);
+                        displayTasks();
+                    });
+                });
+            }
 
             submitButton.addEventListener('click', () => {
-                // Redirect to the results page
-                window.location.href = '/results';
+                const wakingHoursStart = document.getElementById('wakingHoursStart').value;
+                const wakingHoursEnd = document.getElementById('wakingHoursEnd').value;
+                const blockedHoursStart = document.getElementById('blockedHoursStart').value;
+                const blockedHoursEnd = document.getElementById('blockedHoursEnd').value;
+
+                const schedule = {
+                    tasks: tasks,
+                    generalParameters: {
+                        wakingHoursStart: wakingHoursStart,
+                        wakingHoursEnd: wakingHoursEnd,
+                        blockedHoursStart: blockedHoursStart,
+                        blockedHoursEnd: blockedHoursEnd
+                    }
+                };
+
+                // Save the schedule to a JSON file (this part requires server-side handling)
+                fetch('/save_schedule', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(schedule),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Schedule saved:', data);
+                    // Redirect to the results page
+                    window.location.href = '/results';
+                })
+                .catch(error => {
+                    console.error('Error saving schedule:', error);
+                });
             });
         });
     </script>
