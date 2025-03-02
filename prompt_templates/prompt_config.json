@@ -1,8 +1,8 @@
 {
     "order": [
         "intro.txt",
+        "blocked_times.txt",
         "tasks.txt", 
-        "blocked_times.txt", 
         "additional_reqs.txt", 
         "heuristics.txt",
         "closing.txt"]
