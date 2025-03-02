@@ -5,16 +5,21 @@ import json
 import webbrowser
 from datetime import datetime
 
+# Flask app configuration
 app = Flask(__name__)
+
+# Constants
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ics'}
 app.config['JSON_FOLDER'] = 'json'
 URL = 'https://planmy.work/'
 # URL = "http://127.0.0.1:5000/"
 
+# Configure allowed filetypes
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
+# Clear the contents of a folder
 def clear_folder(folder):
     for filename in os.listdir(folder):
         file_path = os.path.join(folder, filename)
@@ -26,26 +31,31 @@ def clear_folder(folder):
         except Exception as e:
             print(f'Failed to delete {file_path}. Reason: {e}')
 
+# Clear the contents of the upload and json folders
 def clear_upload_folder():
     clear_folder(app.config['UPLOAD_FOLDER'])
     clear_folder(app.config['JSON_FOLDER'])
 
+# Ensure that the upload and json folders exist, create them if needed
 def ensure_folders_exist():
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
     if not os.path.exists(app.config['JSON_FOLDER']):
         os.makedirs(app.config['JSON_FOLDER'])
 
+# Custom helper method for .ics parsing
 def get_chars_after(text, char, num_chars):
     index = text.index(char)
     if index == -1 or index + len(char) + num_chars > len(text):
         return ""
     return text[index + len(char):index + len(char) + num_chars]
 
+# Render frontend html page
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# Upload file on submit button click
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -54,17 +64,21 @@ def upload_file():
     if file.filename == '':
         return redirect(request.url)
     if file and allowed_file(file.filename):
+        
+        # Save the uploaded file to the uploads folder
         filename = file.filename
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return filename
     return redirect(request.url)
 
+# Render tasks page with parsed events
 @app.route('/tasks/<filename>')
 def tasks(filename):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     if not os.path.exists(file_path):
         return redirect(url_for('index'))
 
+    # Create template for JSON file
     events = {
         'calendarSettings': {
             'dayStartTime': '00:00',
@@ -75,19 +89,24 @@ def tasks(filename):
         'filename': 'input.ics'
     }
     
+    # Parse the .ics file
     f = open(file_path, 'r')
     print("Parsing file...")
     while True:
+        # While loop to iterate through the file
         line = f.readline()
         if not line:
             break
+        # Find the start of an event
         if line.startswith("BEGIN:VEVENT"):
             line = f.readline()
+            # Parse start date
             if line.startswith("DTSTART"):
                 start_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
                 if start_date < datetime(2025, 3, 2):
                     break
                 line = f.readline()
+                # Parse end date
                 end_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
                 if end_date > datetime(2025, 3, 8):
                     break
@@ -102,6 +121,8 @@ def tasks(filename):
                 event = {
                     'title': summary,
                     'description': description,
+                    'start_date': str(start_date),
+                    'end_date': str(end_date),
                     'duration': str(duration),
                     'quantity': str(1),
                     'timePreference': 'morning'
