@@ -27,6 +27,12 @@ def clear_upload_folder():
     clear_folder(app.config['UPLOAD_FOLDER'])
     clear_folder(app.config['JSON_FOLDER'])
 
+def ensure_folders_exist():
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+    if not os.path.exists(app.config['JSON_FOLDER']):
+        os.makedirs(app.config['JSON_FOLDER'])
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -71,5 +77,6 @@ def results(filename):
     return render_template('results.html', filename=filename)
 
 if __name__ == '__main__':
+    ensure_folders_exist()
     clear_upload_folder()
     app.run(debug=True)
