@@ -6,21 +6,36 @@ The time zone for all provided dates and times is EST.
 **Tasks:**
 * Title: Task 1
 	  Description: Description for Task 1
-	  Duration: 1 hour
+	  Duration: 2 hour
 * Title: Task 2
 	  Description: Description for Task 2
-	  Duration: 2 hour
+	  Duration: 3 hour
 * Title: Task 3
 	  Description: Description for Task 3
-	  Duration: 3 hour
+	  Duration: 4 hour
 * Title: Task 4
 	  Description: Description for Task 4
+	  Duration: 1 hour
+* Title: Task 5
+	  Description: Description for Task 5
+	  Duration: 2 hour
+* Title: Task 6
+	  Description: Description for Task 6
+	  Duration: 3 hour
+* Title: Task 7
+	  Description: Description for Task 7
 	  Duration: 4 hour
+* Title: Task 8
+	  Description: Description for Task 8
+	  Duration: 1 hour
+* Title: Task 9
+	  Description: Description for Task 9
+	  Duration: 2 hour
 
 **Blocked Times:**
 None specified
 
-Normal waking hours are from None specifiedto None specified in the defined timezone. Allot breaks and meals as needed.
+Normal waking hours are from None specified to None specified in the defined timezone. Allot breaks and meals as needed.
 
 Do not just stack all the tasks at the start of the day. Scatter them 
 throughout the available time slots.

@@ -1,4 +1,7 @@
-**Heuristics:** (Provide a list of rules for scheduling tasks, including prioritization, handling overlaps, and any other relevant criteria. Be as specific as possible. Examples:)
+**Heuristics:** 
+Use the heuristics as guidelines for optimizing the schedule for the user's benefit:
 
-* "Prioritize tasks with shorter durations."
+* Prioritize tasks with shorter durations.
 * Leave "transition time" between tasks to avoid back-to-back scheduling. Ideally, they should be about 15 minutes, but use your best judgment.
+* Attempt to spread the tasks out among the week as evenly as possible.
+* If it seems that a task needs to be completed during business hours, schedule it during business hours (9AM to 5PM).

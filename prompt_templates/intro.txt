@@ -2,3 +2,5 @@ Generate an iCalendar (.ics) file representing a weekly schedule based on the fo
 
 I want this week to start from {start_date}, and end on {end_date}.
 The time zone for all provided dates and times is {timezone}.
+
+Normal waking hours are from {waking_start} to {waking_end} in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
