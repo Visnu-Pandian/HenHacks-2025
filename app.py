@@ -2,16 +2,17 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 import os
 import shutil
 import icalendar
+import json
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ics'}
+app.config['JSON_FOLDER'] = 'json'
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-def clear_upload_folder():
-    folder = app.config['UPLOAD_FOLDER']
+def clear_folder(folder):
     for filename in os.listdir(folder):
         file_path = os.path.join(folder, filename)
         try:
@@ -21,6 +22,10 @@ def clear_upload_folder():
                 shutil.rmtree(file_path)
         except Exception as e:
             print(f'Failed to delete {file_path}. Reason: {e}')
+
+def clear_upload_folder():
+    clear_folder(app.config['UPLOAD_FOLDER'])
+    clear_folder(app.config['JSON_FOLDER'])
 
 @app.route('/')
 def index():
@@ -47,8 +52,15 @@ def tasks(filename):
 def save_schedule():
     schedule = request.get_json()
     filename = schedule.get('filename', 'default_schedule.json')
-    # Here you would save the schedule to a database or file
-    # For demonstration, we'll just print it to the console
+    json_folder = app.config['JSON_FOLDER']
+    os.makedirs(json_folder, exist_ok=True)
+    file_path = os.path.join(json_folder, filename)
+    
+    # Save the schedule to a JSON file
+    with open(file_path, 'w') as json_file:
+        json.dump(schedule, json_file)
+    
+    print(f'Schedule saved to {file_path}')
     print(schedule)
     
     # Assuming the save operation is successful, return a success response
