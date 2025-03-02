@@ -78,31 +78,34 @@ def tasks(filename):
     f = open(file_path, 'r')
     while True:
         line = f.readline()
-        if line.startswith("DTSTART"):
-            start_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
-            if start_date < datetime(2025, 6, 9):
-                break
+        if line.startswith("BEGIN:VEVENT"):
             line = f.readline()
-            end_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
-            if end_date > datetime(2025, 6, 15):
-                break
-            duration = end_date - start_date
-            while line.startswith("DESCRIPTION") == False:
+            if line.startswith("DTSTART"):
+                start_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
+                if start_date < datetime(2025, 6, 9):
+                    break
                 line = f.readline()
-            description = line.split(":", 1)[1]
-            while line.startswith("SUMMARY") == False:
-                line = f.readline()
-            summary = line.split(":", 1)[1]
+                end_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
+                if end_date > datetime(2025, 6, 15):
+                    break
+                duration = end_date - start_date
+                while line.startswith("DESCRIPTION") == False:
+                    line = f.readline()
+                description = line.split(":", 1)[1]
+                while line.startswith("SUMMARY") == False:
+                    line = f.readline()
+                summary = line.split(":", 1)[1]
             
-            event = {
-                'title': summary,
-                'description': description,
-                'duration': str(duration),
-                'quantity': str(1),
-                'timePreference': 'morning'
-            }
-            print(event)
-            events['tasks'].append(event)
+                event = {
+                    'title': summary,
+                    'description': description,
+                    'duration': str(duration),
+                    'quantity': str(1),
+                    'timePreference': 'morning'
+                }
+            
+                print(event)
+                events['tasks'].append(event)
             
         else:
             continue
