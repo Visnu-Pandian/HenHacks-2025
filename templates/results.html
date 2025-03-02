@@ -43,8 +43,8 @@
         </header>
         <main>
             <div class="download-button">
-                <a href="{{ url_for('static', filename='../downloads/schedule.ics') }}" download>
-                    <button>Download File</button>
+                <a href="{{ url_for('download_schedule') }}" download>
+                    <button>Download Schedule</button>
                 </a>
                 <div class="summary-content">
                     {{ summary_content }}

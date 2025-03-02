@@ -1,21 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 import os
 import shutil
 import json
 import webbrowser
 from datetime import datetime
-import subprocess  # Import subprocess module
-
+# import subprocess  # Import subprocess module
+from google import genai
+from dotenv import load_dotenv
+from generate import *
+from create_schedule import *
 # Flask app configuration
 app = Flask(__name__)
 
 # Constants
+
 app.config['DOWNLOAD_FOLDER'] = 'downloads'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ics'}
 app.config['JSON_FOLDER'] = 'json'
-URL = 'https://planmy.work/'
-# URL = "http://127.0.0.1:5000/"
+
+
+# URL = 'https://planmy.work/'
+URL = "http://127.0.0.1:5000/"
+
 
 # Configure allowed filetypes
 def allowed_file(filename):
@@ -188,9 +195,51 @@ def save_schedule():
 # Final results page
 @app.route('/results/<filename>')
 def results(filename):
-    # Call create_schedule.py
-    subprocess.run(["python", "create_schedule.py"], check=True)
-    
+    load_dotenv()
+    apiKey = os.getenv('API_KEY')
+    geminiModel = os.getenv('MODEL')
+    client = genai.Client(api_key=apiKey)
+    task_schedule_path = 'json/task_schedule.json'
+    input_schedule_path = 'json/input_schedule.json'
+    merged_schedule_path = 'json/merged_schedule.json'
+    task_schedule = load_json(task_schedule_path)
+    input_schedule = load_json(input_schedule_path)
+
+    merged_schedule = merge_schedules(task_schedule, input_schedule)
+
+    save_json(merged_schedule, merged_schedule_path)
+    print(f'Merged schedule saved to {merged_schedule_path}')
+
+    # Example usage
+    kwargs = {
+        "tasks_str": "\n".join(
+            [f"* Title: {task['title']}\n\t  Description: {task['description']}\n\t Start Time: {task["start_date"] if task["start_date"] else "None specified"}\n\t End Time: {task["end_date"] if task["end_date"] else "None specified"}\n\t Duration: {task['duration']} minutes\n\t Quantity: {task['quantity']}\n\t Time Preference: {task['timePreference']}" for task in merged_schedule["tasks"]]),
+        "start_date": "Sunday, March 2, 2025",
+        "end_date": "Saturday, March 8, 2025",
+        "blocked_str": "\n".join([f"* Start: {block['startTime']}\n\t  End: {block['endTime']}" for block in merged_schedule["calendarSettings"]["blockedHours"]]),
+        "timezone": "EST",
+        "waking_start": merged_schedule["calendarSettings"]["dayStartTime"],
+        "waking_end": merged_schedule["calendarSettings"]["dayEndTime"],
+    }
+    processed_kwargs = process_kwargs(**kwargs)
+
+    prompt = generate_prompt(**processed_kwargs)
+    with open(r"downloads/prompt.md", "w", encoding="utf-8") as f:
+        f.write(prompt)
+
+    ics_content, summary = generate_ics_and_explanation(client, geminiModel, prompt)
+    if ics_content and summary:
+        with open(r"downloads/schedule.ics", "w", encoding="utf-8") as f:
+            f.write(ics_content)
+        with open(r"downloads/summary.txt", "w", encoding="utf-8") as f:
+            f.write(summary)
+        print(summary)
+    else:
+        if ics_content is None:
+            print("Failed to generate .ics file.")
+        if summary is None:
+            print("Failed to generate explanation.")
+        
     # Read the contents of summary.txt
     summary_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], 'summary.txt')
     summary_content = ""
@@ -199,6 +248,10 @@ def results(filename):
             summary_content = summary_file.read()
     
     return render_template('results.html', filename=filename, summary_content=summary_content)
+
+@app.route('/downloads/schedule.ics')
+def download_schedule():
+    return send_from_directory(directory="downloads", path="schedule.ics", as_attachment=True)
 
 if __name__ == '__main__':
     ensure_folders_exist()
