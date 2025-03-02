@@ -32,8 +32,8 @@ kwargs = {
     "end_date": "Saturday, June 15, 2025",
     "blocked_str": "",
     "timezone": "EST",
-    "waking_start": "",
-    "waking_end": "",
+    "waking_start": "08:00",
+    "waking_end": "22:00",
 }
 processed_kwargs = process_kwargs(**kwargs)
 

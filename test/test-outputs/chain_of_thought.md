@@ -1,37 +1,41 @@
-**Chain of Thought:**
+**Chain of Thought: Weekly Schedule Generation**
 
-1.  **Initialization:** The week starts on Sunday, June 09, 2025, and ends on Saturday, June 15, 2025, in the EST timezone. There were no specific waking hours defined, so I assumed all 24 hours are available. There were no blocked times specified.
+**1. Initialization & Input Processing:**
 
-2.  **Task Prioritization and Ordering:** The tasks were initially ordered based on duration, prioritizing shorter tasks (Task 4, Task 1, Task 2, Task 3) according to the 'Prioritize tasks with shorter durations' heuristic. This aimed to fit smaller tasks first, leaving more flexibility for longer ones. However, during the scheduling process, this order was somewhat adjusted based on time preferences.
+*   The week is defined as Sunday, June 09, 2025, to Saturday, June 15, 2025, in the EST timezone.
+*   Waking hours are set to 'None specified', meaning all 24 hours are available for scheduling, although morning, afternoon and evening preferences need to be met.
+*   Tasks are read in order of their provided duration. Shorted duration tasks are scheduled first, as this makes it easier to place them into the schedule. Task 4 (1 hour) is first, then Task 1 (2 hours), then Task 2 (3 hours) and Task 3 (4 hours) last.
+*   No blocked times are specified.
 
-3.  **Time Preference Consideration:** Each task had a time preference (Morning, Afternoon, Evening). I attempted to schedule tasks within these preferred times as much as possible.
+**2. Heuristic Application:**
 
-4.  **Scheduling Loop:** The scheduling process iterated through the days of the week and the prioritized task list. For each task, I attempted to find a suitable time slot within the preferred time of day, considering the task's duration and the need for transition time.
+*   **Prioritize shorter durations:** Shorter tasks (Task 4 and Task 1) are scheduled before longer tasks (Task 2 and Task 3). This makes it easier to fit the shorter tasks around the longer ones and minimizes potential conflicts.
+*   **Transition Time:**  A 15-minute buffer is attempted between tasks where possible.  This is more easily achieved when there are fewer back-to-back tasks, or when there is an imposed business hour to work around.
+*   **Spread Tasks Evenly:** The algorithm attempts to distribute tasks evenly across the week. This prevents overloading specific days.
+*   **Time Preferences:** Attempt to schedule tasks during their preferred time of day (Morning, Afternoon, Evening).  If this causes a conflict, the task is moved to the next available slot while still adhering to the 'spread evenly' and 'transition time' heuristics.
 
-    *   **Transition Time:** I aimed for 15-minute transition times between tasks. This was implemented by adding 15 minutes to the end time of each task before scheduling the next one. However, due to the relatively high task volume, this was not always possible.
+**3. Scheduling Process:**
 
-    *   **Even Distribution:** The goal was to distribute tasks evenly across the week. I attempted to avoid scheduling multiple long tasks on the same day. If a day was already heavily loaded, I would skip to the next day.
+*   **Task 4 (1 hour, 5 times, Afternoon preference):** Scheduled for the afternoon. Evenly distributed across Sunday, Monday, Wednesday, Thursday and Saturday. Start times were chosen to leave sufficient gaps between tasks.
+*   **Task 1 (2 hours, 2 times, Afternoon preference):** Scheduled for the afternoon. Occurring on Tuesday and Friday.
+*   **Task 2 (3 hours, 3 times, Evening preference):** Scheduled for the evening, to meet the preferences. Occurring on Sunday, Tuesday and Thursday.
+*   **Task 3 (4 hours, 4 times, Morning preference):** Scheduled for the morning, to meet the preferences. Occurring on Monday, Wednesday, Friday and Saturday.
 
-    *   **Business Hours:** I attempted to schedule tasks that seemed like they may be more appropriate during business hours (9 AM to 5 PM) within those hours. However, there were no specific instructions to prioritize this, and no tasks stood out as needing to be completed during this time. This heuristic was therefore not a major factor.
+**4. Conflict Resolution:**
 
-5.  **Specific Scheduling Decisions:**
+*   No explicit blocked times were provided, so no conflicts directly arose from that input.
+*   Conflicts arise mostly from meeting preferences and trying to spread events evenly. Shifting to alternative days or times on same day was used to resolve.
 
-    *   Task 4 (1 hour, Afternoon, 5 times) was scheduled first due to its short duration. It was placed in various afternoons throughout the week.
-    *   Task 1 (2 hours, Afternoon, 2 times) was then placed on two other afternoons.
-    *   Task 2 (3 hours, Evening, 3 times) was placed during the evenings.
-    *   Task 3 (4 hours, Morning, 4 times) was placed during the mornings of the remaining days.
+**5. Limitations and Challenges:**
 
-6.  **Conflict Resolution:** There were no blocked times, so conflicts arose only from tasks overlapping. Conflicts were avoided by checking if a time slot was available before scheduling a task. If a conflict occurred, the task was moved to the next available time slot that respected the specified time preference, or to the next day.
+*   The absence of defined waking hours makes it difficult to optimize based on typical business hours. However, preference was given to morning, afternoon or evening times, as requested.
+*   The even distribution heuristic can sometimes conflict with time preferences.  A weighting system to prioritize preferences could be implemented.
+*   The code doesn't dynamically adjust transition time based on task length. Longer tasks might benefit from slightly longer transition times.
 
-7.  **Limitations and Challenges:**
+**6. Potential Improvements:**
 
-    *   The lack of defined waking hours made it harder to allocate tasks.
-    *   The heuristic to prioritize shorter tasks sometimes conflicted with the 'spread tasks evenly' heuristic.
-
-8.  **Potential Improvements:**
-
-    *   Implement a more sophisticated conflict resolution strategy that considers task priorities.
-    *   Allow tasks to be split across multiple days if necessary.
-    *   Develop a more adaptive task ordering algorithm that takes time preferences into account.
-    *   Gathering more information on waking hours would drastically improve the algorithm.
-    *   Priorities between tasks were not specified. Allowing to prioritize tasks would greatly optimize the schedule.
+*   Add a priority level to each task to allow for prioritizing more important tasks. This would affect the order in which tasks are scheduled.
+*   Implement a dynamic transition time adjustment based on task length or type.
+*   Provide an explicit 'business hours' constraint to refine scheduling within those hours.
+*   Implement a machine learning component to learn user preferences over time and automatically adjust scheduling heuristics.
+*   Check that task length does not go over preferences (e.g. a 4 hour task in the afternoon could push some tasks over to evening)
