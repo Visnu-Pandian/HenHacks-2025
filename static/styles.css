@@ -1,7 +1,7 @@
 body {
     font-family: 'Inter', serif;
     background-color: #e0e0e0;
-    background: linear-gradient(90deg, hsla(265, 53%, 29%, 1) 0%, hsla(24, 93%, 73%, 1) 100%);    /* background-image: url("/static/assets/bgdesign.jpg"); */
+    background: linear-gradient(90deg, hsla(265, 53%, 29%, 1) 0%, hsla(24, 93%, 73%, 1) 100%);
     background-size: cover;
     background-position: center;
     background-repeat: repeat;
@@ -24,6 +24,8 @@ body {
     overflow: hidden;
     width: 400px;
     max-width: 100%;
+    padding: 20px;
+    text-align: center;
 }
 
 .upload-container {
@@ -40,7 +42,6 @@ body {
 }
 
 header {
-    /* background: linear-gradient(90deg, hsla(265, 53%, 29%, 1) 0%, hsla(24, 93%, 73%, 1) 100%); */
     background: hsla(265, 53%, 29%, 1);
     color: #FCC7A4;
     padding: 20px;
@@ -224,22 +225,32 @@ footer {
 .summary-content {
     text-align: center;
     font-size: 14px;
+    width: 80%;
+    margin: 20px auto;
+    white-space: pre-wrap;
 }
+
 .download-button-container {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
 }
 
-.download-button-container button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: hsla(24, 93%, 73%, 1);
+.download-button button {
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
-.download-button-container button:hover {
-    background-color: hsla(24, 93%, 63%, 1);
+.download-button button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
 }

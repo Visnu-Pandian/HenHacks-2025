@@ -3,7 +3,7 @@ Generate an iCalendar (.ics) file representing a weekly schedule based on the fo
 I want this week to start from Sunday, March 2, 2025, and end on Saturday, March 8, 2025.
 The time zone for all provided dates and times is EST.
 
-Normal waking hours are from 08:00 to 22:00 in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
+Normal waking hours are from 08:00 to 20:00 in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
 
 **Blocked Times:**
 The following tasks were from previously imported tasks. The SUMMARY for each event should be the title corresponding to the event (which is indicated with each event), so place the following tasks into the file first:
@@ -12,102 +12,12 @@ The following tasks were from previously imported tasks. The SUMMARY for each ev
 No new tasks after these ones can be allotted during these times.
 
 **Tasks:**
-* Title: Hit the gym
-	  Description: gym
+* Title: walk the dog
+	  Description: wahtever
 	 Start Time: None specified
 	 End Time: None specified
 	 Duration: 30 minutes
-	 Quantity: 3
-	 Time Preference: evening
-* Title: Church
-
-	  Description: abc
-
-	 Start Time: 2025-03-02 16:00:00
-	 End Time: 2025-03-02 17:00:00
-	 Duration: 1:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Dinner with Family
-
-	  Description: asdglmnksagdlkj
-
-	 Start Time: 2025-03-02 23:00:00
-	 End Time: 2025-03-03 01:00:00
-	 Duration: 2:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Drive brother to school
-
-	  Description: asdgasdgkjlsadg
-
-	 Start Time: 2025-03-03 13:00:00
-	 End Time: 2025-03-03 14:00:00
-	 Duration: 1:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: CyberWVU meeting
-
-	  Description: asdkasdglkj
-
-	 Start Time: 2025-03-03 22:00:00
-	 End Time: 2025-03-03 23:00:00
-	 Duration: 1:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Lunch with Bob
-
-	  Description: asdkjlasdglkj
-
-	 Start Time: 2025-03-04 17:00:00
-	 End Time: 2025-03-04 18:30:00
-	 Duration: 1:30:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Book Club
-
-	  Description: asdgkjlasdgljk
-
-	 Start Time: 2025-03-05 17:00:00
-	 End Time: 2025-03-05 18:00:00
-	 Duration: 1:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Volunteering at Animal Shelter
-
-	  Description: asdgkjlasglkj
-
-	 Start Time: 2025-03-05 20:00:00
-	 End Time: 2025-03-05 21:00:00
-	 Duration: 1:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Pickleball with Danny
-
-	  Description: asdlkjagsdkjl
-
-	 Start Time: 2025-03-06 17:45:00
-	 End Time: 2025-03-06 19:45:00
-	 Duration: 2:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Dentist Appointment
-
-	  Description: adsjlksgjladk
-
-	 Start Time: 2025-03-07 15:00:00
-	 End Time: 2025-03-07 16:00:00
-	 Duration: 1:00:00 minutes
-	 Quantity: 1
-	 Time Preference: morning
-* Title: Bob's Birthday Party
-
-	  Description: asdgklagsdjkl
-
-	 Start Time: 2025-03-07 20:00:00
-	 End Time: 2025-03-07 23:00:00
-	 Duration: 3:00:00 minutes
-	 Quantity: 1
+	 Quantity: 2
 	 Time Preference: morning
 
 Note that the order for .ics files goes as follows:

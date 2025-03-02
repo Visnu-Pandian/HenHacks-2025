@@ -13,9 +13,9 @@
             <h1>Final Calendar</h1>
         </header>
         <main>
-            <div class="download-button">
+            <div id="download-button-container" class="download-button">
                 <a href="{{ url_for('download_schedule') }}" download>
-                    <button>Download Schedule</button>
+                    <button id="download-button">Download Schedule</button>
                 </a>
                 <div class="summary-content">
                     {{ summary_content }}
