@@ -1,4 +1,5 @@
 **Blocked Times:**
-The following times have already been allotted and so tasks must not be placed during these times:
+The following tasks were from previously imported tasks. The SUMMARY for each event should be the title corresponding to the event (which is indicated with each event), so place the following tasks into the file first:
 {blocked_str}
+No new tasks after these ones can be allotted during these times.
 
