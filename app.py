@@ -78,6 +78,8 @@ def tasks(filename):
     f = open(file_path, 'r')
     while True:
         line = f.readline()
+        if not line:
+            break
         if line.startswith("BEGIN:VEVENT"):
             line = f.readline()
             if line.startswith("DTSTART"):
