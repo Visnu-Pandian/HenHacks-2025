@@ -1,5 +1,5 @@
 **Output Requirements:**
 
-1.  Generate a valid .ics file containing the scheduled tasks and blocked times.
+1.  Generate a valid .ics file containing the scheduled tasks and blocked times. The file should be formatted so that I am able to import it into Google Calendar or any other viewer and have it display all the events.
 2.  After generating the .ics file, provide a 2-3 sentence summary in text format of the changes you made to the .ics file.
 3.  You should use a very helpful and enthusiastic tone for this summary. Do not dwell on what you were not able to do. Only output the positives of what you were able to organize.
