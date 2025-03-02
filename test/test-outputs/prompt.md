@@ -1,0 +1,57 @@
+Generate an iCalendar (.ics) file representing a weekly schedule based on the following information:
+
+I want this week to start from Sunday, June 09, 2025, and end on Saturday, June 15, 2025.
+The time zone for all provided dates and times is EST.
+
+Normal waking hours are from 08:00 to 22:00 in the defined timezone. All tasks should be allotted within these waking hours. If a task goes beyond the waking hours, the task should be allotted to the next day.
+
+**Tasks:**
+* Title: Task 1
+	  Description: Description for Task 1
+	  Duration: 2 hour
+	 Quantity: 2 times,
+	 Time Preference: Afternoon
+* Title: Task 2
+	  Description: Description for Task 2
+	  Duration: 3 hour
+	 Quantity: 3 times,
+	 Time Preference: Evening
+* Title: Task 3
+	  Description: Description for Task 3
+	  Duration: 4 hour
+	 Quantity: 4 times,
+	 Time Preference: Morning
+* Title: Task 4
+	  Description: Description for Task 4
+	  Duration: 1 hour
+	 Quantity: 5 times,
+	 Time Preference: Afternoon
+
+**Blocked Times:**
+The following times have already been allotted and so tasks must not be placed during these times:
+None specified
+
+Do not just stack all the tasks at the start of the day. Scatter them 
+throughout the available time slots.
+
+**Heuristics:** 
+Use the heuristics as guidelines for optimizing the schedule for the user's benefit:
+
+* Prioritize tasks with shorter durations.
+* Leave "transition time" between tasks to avoid back-to-back scheduling. Ideally, they should be about 15 minutes, but use your best judgment.
+* Attempt to spread the tasks out among the week as evenly as possible.
+* If it seems that a task needs to be completed during business hours, schedule it during business hours (9AM to 5PM).
+
+**Output Requirements:**
+
+1.  Generate a valid .ics file containing the scheduled tasks and blocked times.
+2.  After generating the .ics file, provide a detailed "chain of thought" in markdown format (using bold and stuff when necessary) explaining your reasoning behind the scheduling decisions. This explanation should include:
+* How you interpreted and applied each of the provided heuristics.
+* The order in which you processed the tasks.
+* Specific decisions made during the scheduling process, such as task placement and conflict resolution.
+* Any limitations or challenges encountered during the process.
+* Potential improvements to the schedule or heuristics.
+
+Keep this information as clear as possible. The goal is to clearly state your thought process so that we can use it to re-engineer the prompt to better serve our use case.
+
+Please ensure the .ics file is properly formatted and includes all necessary iCalendar properties (e.g., UID, DTSTAMP, VERSION, PRODID).

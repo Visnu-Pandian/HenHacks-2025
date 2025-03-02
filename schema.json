@@ -19,6 +19,14 @@
             "duration": {
               "type": "string",
               "description": "The duration of the task"
+            },
+            "quantity": {
+              "type": "string",
+              "description": "The quantity of the task"
+            },
+            "time-preference": {
+              "type": "string",
+              "description": "The time preference of the task"
             }
           },
           "required": ["title", "description", "duration"]
