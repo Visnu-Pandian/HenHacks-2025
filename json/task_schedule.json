@@ -1,0 +1,1 @@
+{"calendarSettings": {"dayStartTime": "08:00", "dayEndTime": "22:00", "blockedHours": [{"startTime": "16:00", "endTime": "17:00"}]}, "tasks": [{"title": "Skiing", "description": "GO ski", "start_date": null, "end_date": null, "duration": "90", "quantity": "2", "timePreference": "morning"}], "filename": "input_schedule.json"}
