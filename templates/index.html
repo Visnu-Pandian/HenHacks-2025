@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </head>
 <body>
+    <!-- File submission portal -->
     <div class="container" id="upload-container">
         <header>
             <h1 id="typewriter"></h1>
@@ -28,6 +29,7 @@
         </main>
     </div>
     <script>
+    // Interactive listener
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('fileInput');
             const dropZone = document.getElementById('dropZone');
@@ -44,21 +46,25 @@
             dropZone.addEventListener('click', () => fileInput.click());
             uploadButton.addEventListener('click', uploadFile);
 
+            // Only last file to be added will be uploaded
             function handleFileSelect(event) {
                 const files = event.target.files;
                 addFile(files[0]);
             }
 
+            // Drag and drop file handling
             function handleDragOver(event) {
                 event.preventDefault();
                 dropZone.classList.add('drag-over');
             }
 
+            // Drag and drop file handling
             function handleDragLeave(event) {
                 event.preventDefault();
                 dropZone.classList.remove('drag-over');
             }
 
+            // Drag and drop file handling
             function handleFileDrop(event) {
                 event.preventDefault();
                 dropZone.classList.remove('drag-over');
@@ -66,6 +72,7 @@
                 addFile(files[0]);
             }
 
+            // Add file to upload
             function addFile(file) {
                 if (file && file.name.match(/\.(ics)$/)) {
                     fileToUpload = file;
@@ -78,6 +85,7 @@
                 }
             }
 
+            // Upload file to server
             async function uploadFile() {
                 if (!fileToUpload) {
                     alert('No file selected.');
@@ -87,6 +95,7 @@
                 const formData = new FormData();
                 formData.append('file', fileToUpload);
 
+                // Send file to server
                 try {
                     const response = await fetch('/upload', {
                         method: 'POST',

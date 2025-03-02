@@ -9,6 +9,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Constants
+app.config['DOWNLOAD_FOLDER'] = 'downloads'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ics'}
 app.config['JSON_FOLDER'] = 'json'
@@ -31,17 +32,20 @@ def clear_folder(folder):
         except Exception as e:
             print(f'Failed to delete {file_path}. Reason: {e}')
 
-# Clear the contents of the upload and json folders
+# Clear the contents of the upload, download and json folders
 def clear_upload_folder():
     clear_folder(app.config['UPLOAD_FOLDER'])
     clear_folder(app.config['JSON_FOLDER'])
+    clear_folder(app.config['DOWNLOAD_FOLDER'])
 
-# Ensure that the upload and json folders exist, create them if needed
+# Ensure that the upload, download and json folders exist, create them if needed
 def ensure_folders_exist():
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
     if not os.path.exists(app.config['JSON_FOLDER']):
         os.makedirs(app.config['JSON_FOLDER'])
+    if not os.path.exists(app.config['DOWNLOAD_FOLDER']):
+        os.makedirs(app.config['DOWNLOAD_FOLDER'])
 
 # Custom helper method for .ics parsing
 def get_chars_after(text, char, num_chars):
@@ -110,14 +114,18 @@ def tasks(filename):
                 end_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
                 if end_date > datetime(2025, 3, 8):
                     break
+                # Calculating task duration based on start and end date
                 duration = end_date - start_date
+                # Keep reading unil next decription task is found.
                 while line.startswith("DESCRIPTION") == False:
                     line = f.readline()
                 description = line.split(":", 1)[1]
+                # Keep reading until next summary task is found.
                 while line.startswith("SUMMARY") == False:
                     line = f.readline()
                 summary = line.split(":", 1)[1]
             
+                # Compliing the JSON object for the event
                 event = {
                     'title': summary,
                     'description': description,
@@ -129,6 +137,7 @@ def tasks(filename):
                 }
             
                 print(event)
+                # Adding JSON object to the events file
                 events['tasks'].append(event)
             
         else:
@@ -139,28 +148,33 @@ def tasks(filename):
     # Convert events to JSON
     events_json = json.dumps(events, indent=4)
     
+    # Creating file at path
     filename = 'input_schedule.json'
     json_folder = app.config['JSON_FOLDER']
     os.makedirs(json_folder, exist_ok=True)
     file_path = os.path.join(json_folder, filename)
     
+    # Dumping JON object to file
     with open(file_path, 'w') as json_file:
         json.dump(events, json_file)
         
     print(f'Events saved to {file_path}')
     print(events_json)
     
+    # Rendering the tasks page with the parsed events
     return render_template('tasks.html', filename=filename, events=events)
 
+# Saves the schedule to a JSON file
 @app.route('/save_schedule', methods=['POST'])
 def save_schedule():
     schedule = request.get_json()
+    # Creating file at path
     filename = 'task_schedule.json'
     json_folder = app.config['JSON_FOLDER']
     os.makedirs(json_folder, exist_ok=True)
     file_path = os.path.join(json_folder, filename)
     
-    # Save the schedule to a JSON file
+    # Dumping JSON object to file
     with open(file_path, 'w') as json_file:
         json.dump(schedule, json_file)
     
@@ -170,6 +184,7 @@ def save_schedule():
     # Assuming the save operation is successful, return a success response
     return jsonify({"status": "success", "filename": filename}), 200
 
+# Final results page
 @app.route('/results/<filename>')
 def results(filename):
     return render_template('results.html', filename=filename)

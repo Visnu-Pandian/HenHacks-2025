@@ -6,6 +6,26 @@
     <title>Final Calendar</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .download-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .download-button button {
+            font-size: 24px;
+            padding: 20px 40px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .download-button button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -13,9 +33,10 @@
             <h1>Final Calendar</h1>
         </header>
         <main>
-            <!-- Embed Google Calendar -->
-            <div id="calendarDisplay" class="calendar-display">
-                <iframe src="https://calendar.google.com/calendar/embed?src=cyberwvu%40gmail.com&ctz=America%2FNew_York" style="border: 0" width="1200" height="900" frameborder="0" scrolling="no"></iframe>
+            <div class="download-button">
+                <a href="{{ url_for('static', filename='chosen_file.ext') }}" download>
+                    <button>Download File</button>
+                </a>
             </div>
         </main>
     </div>

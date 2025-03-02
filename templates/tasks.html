@@ -8,18 +8,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <!-- Task scheduling portal -->
     <div class="tasks-container">
         <header>
             <h1>Schedule Your Activities</h1>
         </header>
         <main>
+            <!-- Section to add individual tasks -->
             <div class="tasks-schedule-section">
                 <h2>Add Individual Tasks</h2>
                 <form id="taskForm">
                     <div class="tasks-schedule-time">
+                        <!-- Text boxes with free input for user -->
                         <textarea id="taskName" name="taskName" rows="1" maxlength="12" placeholder="Enter task name..."></textarea>
                         <textarea id="taskDescription" name="taskDescription" rows="2" maxlength="30" placeholder="Enter task description..."></textarea>
                     </div>
+                    <!-- Dropdowns for user to select task duration, preferred time, and quantity -->
                     <div class="tasks-schedule-time">
                         <select id="taskDuration" name="taskDuration">
                             <option value="">Select duration</option>
@@ -42,6 +46,7 @@
                             <option value="5">5</option>
                         </select>
                     </div>
+                    <!-- Button to add task to submission list-->
                     <div class="tasks-button-container">
                         <button id="addTaskButton" type="button">Add Task</button>
                     </div>
@@ -49,6 +54,7 @@
             </div>
             <div class="tasks-task-list" id="taskList">
             </div>
+            <!-- Section to set parameters for all tasks -->
             <div class="tasks-general-parameters">
                 <h2>General Parameters</h2>
                 <div class="tasks-schedule-time">
@@ -74,6 +80,7 @@
         </main>
     </div>
     <script>
+        // Interactive listener for scheduling tasks.
         document.addEventListener('DOMContentLoaded', () => {
             const addTaskButton = document.getElementById('addTaskButton');
             const taskList = document.getElementById('taskList');
@@ -96,6 +103,7 @@
                     return;
                 }
 
+                
                 const task = {
                     title: taskName,
                     description: taskDescription,
