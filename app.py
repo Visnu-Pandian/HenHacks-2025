@@ -3,11 +3,17 @@ import os
 import shutil
 import icalendar
 import json
+import webbrowser
+from datetime import datetime, timedelta
+import pytz
+import pandas as pd
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ics'}
 app.config['JSON_FOLDER'] = 'json'
+# URL = 'https://planmy.work/'
+URL = "http://127.0.0.1:5000/"
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
@@ -33,6 +39,12 @@ def ensure_folders_exist():
     if not os.path.exists(app.config['JSON_FOLDER']):
         os.makedirs(app.config['JSON_FOLDER'])
 
+def get_chars_after(text, char, num_chars):
+    index = text.index(char)
+    if index == -1 or index + len(char) + num_chars > len(text):
+        return ""
+    return text[index + len(char):index + len(char) + num_chars]
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -52,7 +64,70 @@ def upload_file():
 
 @app.route('/tasks/<filename>')
 def tasks(filename):
-    return render_template('tasks.html', filename=filename)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if not os.path.exists(file_path):
+        return redirect(url_for('index'))
+
+    events = {
+        'calendarSettings': {
+            'dayStartTime': '00:00',
+            'dayEndTime': '23:59',
+            'blockedHours': [{'startTime': '23:59', 'endTime': '00:00'}]
+        },
+        'tasks': [],
+        'filename': 'input.ics'
+    }
+    
+    f = open(file_path, 'r')
+    while True:
+        line = f.readline()
+        if line.startswith("DTSTART"):
+            start_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
+            if start_date < datetime(2025, 6, 9):
+                break
+            line = f.readline()
+            end_date = datetime.strptime(get_chars_after(line, ":", 15), '%Y%m%dT%H%M%S')
+            if end_date > datetime(2025, 6, 15):
+                break
+            duration = end_date - start_date
+            while line.startswith("DESCRIPTION") == False:
+                line = f.readline()
+            description = line.split(":", 1)[1]
+            while line.startswith("SUMMARY") == False:
+                line = f.readline()
+            summary = line.split(":", 1)[1]
+            
+            event = {
+                'title': summary,
+                'description': description,
+                'duration': str(duration),
+                'quantity': str(1),
+                'timePreference': 'morning'
+            }
+            print(event)
+            events['tasks'].append(event)
+            
+        else:
+            continue
+        
+    f.close()
+
+    # Convert events to JSON
+    events_json = json.dumps(events, indent=4)
+    
+    
+    filename = 'input_schedule.json'
+    json_folder = app.config['JSON_FOLDER']
+    os.makedirs(json_folder, exist_ok=True)
+    file_path = os.path.join(json_folder, filename)
+    
+    with open(file_path, 'w') as json_file:
+        json.dump(events, json_file)
+        
+    print(f'Events saved to {file_path}')
+    print(events_json)
+    
+    return render_template('tasks.html', filename=filename, events=events)
 
 @app.route('/save_schedule', methods=['POST'])
 def save_schedule():
@@ -79,4 +154,5 @@ def results(filename):
 if __name__ == '__main__':
     ensure_folders_exist()
     clear_upload_folder()
+    webbrowser.open(URL)
     app.run(debug=True)

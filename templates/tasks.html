@@ -114,10 +114,10 @@
                     const taskItem = document.createElement('div');
                     taskItem.className = 'task-item';
                     taskItem.innerHTML = `
-                        <p><strong>Name:</strong> ${task.name}</p>
+                        <p><strong>Name:</strong> ${task.title}</p>
                         <p><strong>Description:</strong> ${task.description}</p>
                         <p><strong>Duration:</strong> ${task.duration} minutes</p>
-                        <p><strong>Preferred Time:</strong> ${task.preferredTime}</p>
+                        <p><strong>Preferred Time:</strong> ${task.timePreference}</p>
                         <p><strong>Quantity:</strong> ${task.quantity}</p>
                         <button class="removeTaskButton" data-index="${index}">Remove</button>
                     `;
