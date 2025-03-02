@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'ics'}
 app.config['JSON_FOLDER'] = 'json'
-# URL = 'https://planmy.work/'
-URL = "http://127.0.0.1:5000/"
+URL = 'https://planmy.work/'
+# URL = "http://127.0.0.1:5000/"
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
