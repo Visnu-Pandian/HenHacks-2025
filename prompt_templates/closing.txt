@@ -1,7 +1,7 @@
 **Output Requirements:**
 
 1.  Generate a valid .ics file containing the scheduled tasks and blocked times.
-2.  After generating the .ics file, provide a detailed "chain of thought" in markdown format (using bold and stuff when necessary) explaining your reasoning behind the scheduling decisions. This explanation should include:
+2.  After generating the .ics file, provide a detailed "chain of thought" in markdown format, explaining your reasoning behind the scheduling decisions. This explanation should include:
 * How you interpreted and applied each of the provided heuristics.
 * The order in which you processed the tasks.
 * Specific decisions made during the scheduling process, such as task placement and conflict resolution.

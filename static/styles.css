@@ -1,7 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', serif;
     background-color: #e0e0e0;
-    background-image: url("/static/assets/bgdesign.jpg");
+    background: linear-gradient(90deg, hsla(265, 53%, 29%, 1) 0%, hsla(24, 93%, 73%, 1) 100%);    /* background-image: url("/static/assets/bgdesign.jpg"); */
     background-size: cover;
     background-position: center;
     background-repeat: repeat;
@@ -11,6 +11,10 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+}
+
+#typewriter {
+    display: inline;
 }
 
 .container {
@@ -36,8 +40,9 @@ body {
 }
 
 header {
-    background-color: #007bff;
-    color: #fff;
+    /* background: linear-gradient(90deg, hsla(265, 53%, 29%, 1) 0%, hsla(24, 93%, 73%, 1) 100%); */
+    background: hsla(265, 53%, 29%, 1);
+    color: #FCC7A4;
     padding: 20px;
     text-align: center;
 }
@@ -46,14 +51,18 @@ main {
     padding: 20px;
 }
 
+.upload {
+    background: #FCC7A4;
+}
 .upload-section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: hsla(265, 53%, 29%, 1);
 }
 
 .drop-zone {
-    border: 2px dashed #007bff;
+    border: 2px dashed hsla(265, 53%, 29%, 1);
     border-radius: 4px;
     padding: 20px;
     text-align: center;
@@ -63,11 +72,11 @@ main {
 }
 
 .drop-zone:hover {
-    background-color: #e0e0e0;
+    background-color: hsla(265, 53%, 29%, 0.1);
 }
 
 .drop-zone.drag-over {
-    background-color: #e0e0e0;
+    background-color: hsla(265, 53%, 29%, 0.1);
 }
 
 #fileInput {
@@ -81,7 +90,7 @@ main {
 }
 
 #uploadButton {
-    background-color: #007bff;
+    background-color: hsla(265, 53%, 29%, 1);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -99,7 +108,7 @@ main {
 }
 
 #uploadButton:hover {
-    background-color: #0056b3;
+    background-color: hsla(265, 53%, 39%, 1);
 }
 
 .upload-status {
@@ -114,7 +123,7 @@ main {
 }
 
 #submitButton {
-    background-color: #007bff;
+    background-color: hsla(24, 93%, 73%, 1);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -125,16 +134,18 @@ main {
 }
 
 #submitButton:hover {
-    background-color: #0056b3;
+    background-color: hsla(24, 93%, 63%, 1);
 }
 
 .schedule-section {
     max-width: 60%;
     margin: 0 auto;
 }
+
 .schedule-time textarea {
     width: 40%;
 }
+
 .button-container {
     text-align: center;
 }
@@ -150,7 +161,7 @@ footer {
 .tasks-container {
     width: 60%; /* Adjust the width as needed */
     margin: 20px auto; /* Add some margin to the top and bottom */
-    background-color: #fff;
+    background-color: #FCC7A4;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -184,14 +195,14 @@ footer {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: hsla(24, 93%, 73%, 1);
     color: white;
     border: none;
     border-radius: 4px;
 }
 
 .tasks-button-container button:hover {
-    background-color: #0056b3;
+    background-color: hsla(24, 93%, 63%, 1);
 }
 
 .tasks-task-list {

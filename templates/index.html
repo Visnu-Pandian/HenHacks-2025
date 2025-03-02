@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload File</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </head>
 <body>
     <div class="container" id="upload-container">
         <header>
-            <h1>Upload Your File</h1>
+            <h1 id="typewriter"></h1>
         </header>
-        <main>
+        <main class="upload">
             <div class="upload-section">
                 <div id="dropZone" class="drop-zone">
-                    <p>Drag and drop your file here or click to select file</p>
+                    <p>Drag and drop here or click to select file!</p>
                     <input type="file" id="fileInput" accept=".ics">
                 </div>
                 <div id="fileList" class="file-list"></div>
-                <button id="uploadButton"><b>Upload</b><img src="/static/assets/clouduploadicon.png" alt="Logo"></button>
+                <button id="uploadButton"><b>Submit</b><img src="/static/assets/clouduploadicon.png" alt="Logo"></button>
             </div>
             <div id="uploadStatus" class="upload-status"></div>
         </main>
@@ -99,6 +103,14 @@
                     uploadStatus.textContent = 'Error uploading file';
                 }
             }
+
+            // Initialize Typed.js
+            new Typed('#typewriter', {
+                strings: ['planmy.work'],
+                typeSpeed: 150,
+                backSpeed: 75,
+                loop: false
+            });
         });
     </script>
 </body>
