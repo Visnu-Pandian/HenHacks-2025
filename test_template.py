@@ -9,13 +9,16 @@ geminiModel = os.getenv('MODEL')
 
 client = genai.Client(api_key=apiKey)
 
+preference_array = ["Morning", "Afternoon", "Evening"]
+
 tasks = []
 for i in range(1, 5):
     tasks.append({
         "Title": f"Task {i}",
         "Description": f"Description for Task {i}",
         "Duration": f"{i % 4 + 1} hour",
-        "Quantity": f"{i % 5 + 1} times,"
+        "Quantity": f"{i % 5 + 1} times,",
+        "Time Preference": f"{preference_array[i % 3]}",
     })
 
 def process_kwargs(**kwargs):
@@ -24,7 +27,7 @@ def process_kwargs(**kwargs):
 
 # Example usage
 kwargs = {
-    "tasks_str": "\n".join([f"* Title: {task['Title']}\n\t  Description: {task['Description']}\n\t  Duration: {task['Duration']}\n\t Quantity: {task['Quantity']}" for task in tasks]),
+    "tasks_str": "\n".join([f"* Title: {task['Title']}\n\t  Description: {task['Description']}\n\t  Duration: {task['Duration']}\n\t Quantity: {task['Quantity']}\n\t Time Preference: {task['Time Preference']}" for task in tasks]),
     "start_date": "Sunday, June 09, 2025",
     "end_date": "Saturday, June 15, 2025",
     "blocked_str": "",

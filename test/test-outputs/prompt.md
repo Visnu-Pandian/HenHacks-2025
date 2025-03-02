@@ -10,18 +10,22 @@ Normal waking hours are from None specified to None specified in the defined tim
 	  Description: Description for Task 1
 	  Duration: 2 hour
 	 Quantity: 2 times,
+	 Time Preference: Afternoon
 * Title: Task 2
 	  Description: Description for Task 2
 	  Duration: 3 hour
 	 Quantity: 3 times,
+	 Time Preference: Evening
 * Title: Task 3
 	  Description: Description for Task 3
 	  Duration: 4 hour
 	 Quantity: 4 times,
+	 Time Preference: Morning
 * Title: Task 4
 	  Description: Description for Task 4
 	  Duration: 1 hour
 	 Quantity: 5 times,
+	 Time Preference: Afternoon
 
 **Blocked Times:**
 The following times have already been allotted and so tasks must not be placed during these times:
