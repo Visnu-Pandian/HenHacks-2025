@@ -76,6 +76,7 @@ def tasks(filename):
     }
     
     f = open(file_path, 'r')
+    print("Parsing file...")
     while True:
         line = f.readline()
         if not line:
@@ -113,7 +114,7 @@ def tasks(filename):
             continue
         
     f.close()
-
+    print("file done parsing")
     # Convert events to JSON
     events_json = json.dumps(events, indent=4)
     
